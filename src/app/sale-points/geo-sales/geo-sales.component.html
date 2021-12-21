@@ -1,0 +1,47 @@
+<mat-table [dataSource]="service.salePointTos" matSort class="mat-elevation-z8">
+
+  <ng-container matColumnDef="name">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="province">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> province </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.province}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="comune">
+    <mat-header-cell *matHeaderCellDef> comune </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.comune}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="cap">
+    <mat-header-cell *matHeaderCellDef> cap </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.cap}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="tel">
+    <mat-header-cell *matHeaderCellDef> tel </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.tel}} </mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="fieldCode">
+    <mat-header-cell *matHeaderCellDef> fieldCode </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.fieldCode}} </mat-cell>
+  </ng-container>
+
+
+  <ng-container matColumnDef="actions">
+    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <!--<button mat-icon-button (click)="onEdit(row)"><mat-icon>launch</mat-icon></button>-->
+      <!--<button mat-icon-button color="warn" (click)="onDelete(row.$key)"><mat-icon>delete_outline</mat-icon></button>-->
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mat-paginator [pageSizeOptions]="[2, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+
+

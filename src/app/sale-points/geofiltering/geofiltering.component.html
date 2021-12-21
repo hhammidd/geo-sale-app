@@ -1,0 +1,72 @@
+<div class="c">
+  <div *ngIf="loadContent" class="container">
+    <form [formGroup]="formGroup" (ngSubmit)="save()" (reset)="resetForm()">
+      <br/>
+
+      <ng-multiselect-dropdown #multiSelect
+                               [placeholder]="'Add Regions'"
+                               [data]="regionDropdownList"
+                               [formControl]="f.regions"
+                               [(ngModel)]="regionSelectedItems"
+                               [settings]="regionDropdownSettings"
+                               (onDeSelect)="onDeSelect($event)"
+                               (onSelect)="onRegionSelect($event)"
+                               (onSelectAll)="onSelectAllRegion($event)"
+      >
+
+      </ng-multiselect-dropdown>
+
+      <br/>
+      <ng-multiselect-dropdown #multiSelect
+                               [placeholder]="'Add Province'"
+                               [data]="provinceDropdownList"
+                               [formControl]="f.provinces"
+                               [(ngModel)]="provinceSelectedItems"
+                               [settings]="provinceDropdownSettings"
+                               (onSelect)="onProvinceSelect($event)"
+                               (onSelectAll)="onSelectAllProvines($event)"
+      >
+
+      </ng-multiselect-dropdown>
+      <br/>
+      <ng-multiselect-dropdown #multiSelect
+                               [placeholder]="'Add Comune'"
+                               [data]="comuneDropdownList"
+                               [formControl]="f.comunes"
+                               [(ngModel)]="comuneSelectedItems"
+                               [settings]="comuneDropdownSettings"
+                               (onSelect)="onComuneSelect($event)"
+                               (onSelectAll)="onSelectAllComunes($event)"
+      >
+
+      </ng-multiselect-dropdown>
+      <br/>
+
+      <div class="add-bottom-padding">
+        <mat-form-field>
+          <mat-select formControlName="field" placeholder="Field">
+            <mat-option>None</mat-option>
+            <ng-container *ngFor="let field of fields">
+              <mat-option value="{{field.value}}">{{field.value}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="add-bottom-padding">
+        <mat-form-field>
+          <mat-select formControlName="market" placeholder="Market">
+            <mat-option>None</mat-option>
+            <ng-container *ngFor="let market of markets">
+              <mat-option value="{{market.value}}">{{market.value}}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <input class="btn btn-primary" type="submit" value="Submit">
+      <input class="btn btn-primary" type="reset" value="Reset">
+      <input class="btn btn-primary" type="button" value="Toggle Select All" (click)="multiSelect.toggleSelectAll()">
+    </form>
+  </div>
+</div>
