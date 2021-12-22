@@ -36,30 +36,17 @@ export class SalepointOlComponent implements OnInit {
           source: new OSM()
         }),
         new TileLayer({
-          source: new OSM(),
-        }),
-        new TileLayer({
-          extent: [-13884991, 2870341, -7455066, 6338219],
           source: new TileWMS({
-            url: 'https://ahocevar.com/geoserver/wms',
-            params: {'LAYERS': 'topp:states', 'TILED': true},
+            url: 'http://localhost:8081/geoserver/geosale/wms',
+            params: {'LAYERS': 'geosale:ITA_adm1', 'TILED': true},
             serverType: 'geoserver',
-            // Countries have transparency, so do not fade tiles:
-            transition: 0,
+            // transition: 0,
           }),
+          opacity: 0.5
         }),
-        // new TileLayer({
-        //   extent: [-13884991, 2870341, -7455066, 6338219],
-        //   source: new TileWMS({
-        //     url: 'http://localhost:8081/geoserver/wms',
-        //     params: {'LAYERS': 'tiger:giant_polygon', 'TILED': true},
-        //     serverType: 'geoserver',
-        //     // Countries have transparency, so do not fade tiles:
-        //     transition: 0,
-        //   }),
-        // }),
       ],
       view: new View({
+        projection: 'EPSG:900913',
         center: [-10997148, 4569099],
         zoom: 4
       })
