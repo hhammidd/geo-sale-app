@@ -185,11 +185,30 @@ export class SalepointOlComponent implements OnInit {
         const fid : any = feature.getId();
         selection[fid] = feature;
         selectionLayer.changed();
-        console.log(fid);
+        console.log(feature.get('data'));
       })
     })
     // map.on('click', function (e) {
     //   console.log(e.coordinate);
     // })
+
+    //TODO Add to tree
+    //TODO Remove from tree
+    //TODO Get the name of chosen from DB
+    //TODO Show name of chosen from DB in a grid
+    //TODO Add the swith of Layers
+    // TODO change Style and color
+    // TODO test working with wms
+
+    //TODO Call the filter
+    //TODO Add Form Sale point under the map
+    //TODO Add the Province
+    //TODO Add the Comune
+    //TODO test the performane
+    // TODO Add the netherlands
+    // TODO Add the switcher fro markets
+    // TODO Create the parameter
+    // TODO Add potential to PVs
+
   }
 }
