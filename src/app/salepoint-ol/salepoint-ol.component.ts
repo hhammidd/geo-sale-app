@@ -15,6 +15,7 @@ import {style} from "@angular/animations";
 import {bbox as bboxStrategy} from 'ol/loadingstrategy';
 import Control from "ol/control/Control";
 import LayerGroup from "ol/layer/Group";
+import Overlay from "ol/Overlay";
 
 const place = [37.41, 8.82];
 const point = new Point(place);
@@ -123,9 +124,22 @@ export class SalepointOlComponent implements OnInit {
       }),
     });
 
+    const overlayContainerElement: HTMLElement = document.querySelector('.overlay-container')!;
+    const overlayLayer = new Overlay({
+      element: overlayContainerElement
+    })
+    map.addOverlay(overlayLayer);
+    const overLayFeatureId = document.getElementById('feature-id')!;
+
+
     map.on('click', function (e) {
       map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
-        console.log(feature.getId());// get the codes
+        let clickedCoordinate = e.coordinate;
+        let clickedFeatureId : any = feature.getId()
+        overlayLayer.setPosition(clickedCoordinate);
+        overLayFeatureId.innerHTML = clickedFeatureId;
+
+        console.log(clickedFeatureId);// get the codes
       })
     })
     // map.on('click', function (e) {
