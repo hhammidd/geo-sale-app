@@ -27,7 +27,7 @@ const point = new Point(place);
 })
 export class SalepointOlComponent implements OnInit {
 
-  map;
+  // map;
   wms;
 
   constructor() {
@@ -71,7 +71,7 @@ export class SalepointOlComponent implements OnInit {
       strategy: bboxStrategy,
 
     });
-
+    //
     const vectorLayer = new VectorLayer({
       source: new VectorSource({
          url: 'http://localhost:8082/geoserver/geosale/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geosale%3AITA_adm1&maxFeatures=50&outputFormat=application%2Fjson',
@@ -84,8 +84,8 @@ export class SalepointOlComponent implements OnInit {
         return style;
       },
     });
-
-
+    //
+    //
     const baseMap = new Tile({source: new OSM()});
     const regionBoarder = new TileLayer({
       source: new TileWMS({
@@ -97,7 +97,7 @@ export class SalepointOlComponent implements OnInit {
       }),
       opacity: 0.5
     });
-
+    //
     const vector = new VectorLayer({
       source: vectorSource,
 
@@ -110,17 +110,26 @@ export class SalepointOlComponent implements OnInit {
     });
 
     const grp = new LayerGroup({
-      layers: [baseMap, regionBoarder],
+      layers: [baseMap, vectorLayer],
     });
 
-    this.map = new MAP({
+    const map = new MAP({
       target: 'map',
       layers: [grp ],
       view: new View({
-        projection: 'EPSG:900913',
+        // projection: 'EPSG:900913',
         center: [-78906677.036667, 5444438.895],
         zoom: 4
       }),
     });
+
+    map.on('click', function (e) {
+      map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+        console.log(feature.getId());// get the codes
+      })
+    })
+    // map.on('click', function (e) {
+    //   console.log(e.coordinate);
+    // })
   }
 }
