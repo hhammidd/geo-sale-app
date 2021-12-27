@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import Tile from "ol/layer/Tile";
 import View from "ol/View";
 import MAP from "ol/Map";
-import Point from "ol/geom/Point";
 
 import OSM from 'ol/source/OSM';
 import TileWMS from 'ol/source/TileWMS';
@@ -13,14 +12,8 @@ import GeoJSON from 'ol/format/GeoJSON';
 import {Fill, Stroke, Style} from 'ol/style';
 import LayerGroup from "ol/layer/Group";
 import Overlay from "ol/Overlay";
-import {stringify} from "querystring";
-import {returnOrUpdate} from "ol/extent";
-
-
-
-const place = [37.41, 8.82];
-const point = new Point(place);
-
+import {SalepointOlService} from "./shared/salepoint-ol.service";
+import {GeosTo} from "./model/GeosTo";
 
 @Component({
   selector: 'app-salepoint-ol',
@@ -30,9 +23,9 @@ const point = new Point(place);
 export class SalepointOlComponent implements OnInit {
 
 
-  test = new Set<string>();
+  geoList = new Set<string>();
 
-  constructor() {
+  constructor(public service: SalepointOlService) {
   }
 
   selects: string[] = [];
@@ -90,13 +83,11 @@ export class SalepointOlComponent implements OnInit {
     const grp = new LayerGroup({
       layers: [baseMap, vectorLayer, regionBoarder],
     });
-    //
 
     const map = new MAP({
       target: 'map',
       layers: [grp ],
       view: new View({
-        // projection: 'EPSG:900913',
         center: [-78906677.036667, 5444438.895],
         zoom: 5
       }),
@@ -104,7 +95,6 @@ export class SalepointOlComponent implements OnInit {
     // Selection
     const selectionLayer = new VectorLayer({
       map: map,
-      // renderMode: 'vector',
       source: vectorLayer.getSource(),
       style: function (feature) {
         if (feature.getId()! in selection) {
@@ -112,7 +102,6 @@ export class SalepointOlComponent implements OnInit {
         }
       },
     });
-    //
 
     let selection = {};
 
@@ -121,8 +110,6 @@ export class SalepointOlComponent implements OnInit {
       element: overlayContainerElement
     });
     map.addOverlay(overlayLayer);
-    const overLayFeatureId = document.getElementById('feature-id')!;
-
 
     let selects1  = new Set<string>();
 
@@ -160,8 +147,6 @@ export class SalepointOlComponent implements OnInit {
       }
     };
 
-
-
     map.on('click', function ( e) {
       // map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
       //   let clickedCoordinate = e.coordinate;
@@ -175,7 +160,7 @@ export class SalepointOlComponent implements OnInit {
       console.log('ss', ss)
     });
 
-     this.test = selects1;
+     this.geoList = selects1;
     // map.on('click', function (e) {
     //   console.log(e.coordinate);
     // })
@@ -202,7 +187,6 @@ export class SalepointOlComponent implements OnInit {
   }
 
   onSubmit(formValue){
-    console.log('submit kjhgfdfghjkl;lkjhgfghjklkjhgfg' , this.test);
-    // this.test =[];
+    this.service.getGeos(this.geoList);
   }
 }
