@@ -23,7 +23,7 @@ import {GeosTo} from "./model/GeosTo";
 export class SalepointOlComponent implements OnInit {
 
 
-  geoList = new Set<string>();
+  geoList = new Set<string>(); // to prevent duplication
 
   constructor(public service: SalepointOlService) {
   }
@@ -40,9 +40,7 @@ export class SalepointOlComponent implements OnInit {
       source: new TileWMS({
         url: 'http://localhost:8082/geoserver/geosale/wms',
         params: {'LAYERS': 'geosale:ITA_adm1', 'TILED': true},
-        // params: {'LAYERS': 'geosale:gadm36_NLD_2', 'TILED': true},
         serverType: 'geoserver',
-        // transition: 0,
       }),
       opacity: 0.5
     });
@@ -67,12 +65,10 @@ export class SalepointOlComponent implements OnInit {
       }),
     });
 
-    //
+
     const vectorLayer = new VectorLayer({
       source: new VectorSource({
         url: 'http://localhost:8082/geoserver/geosale/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geosale%3AITA_adm1&maxFeatures=50&outputFormat=application%2Fjson',
-        // url: 'https://openlayers.org/en/v5.1.3/examples/data/geojson/countries.geojson', //world
-        // url: 'http://localhost:8081/geoserver/geosale/wms?service=WMS&version=1.1.0&request=GetMap&layers=geosale%3Agadm36_NLD_2&bbox=3.3607819080352783%2C50.72349166870117%2C7.227095127105656%2C53.55458450317383&width=768&height=562&srs=EPSG%3A4326&styles=&format=application/openlayers',
         format: new GeoJSON(),
       }),
       style: country,
@@ -113,7 +109,7 @@ export class SalepointOlComponent implements OnInit {
 
     let selects1  = new Set<string>();
 
-    function doBa() {
+    function selectMap() {
       return function(features) {
         if (!features.length) {
           selection = {};
@@ -138,15 +134,11 @@ export class SalepointOlComponent implements OnInit {
         console.log('se', selects1);
 
         selection[fid] = feature;
-        console.log('feuture ', fid.valueOf());
+        // console.log('feuture ', fid.valueOf());
         selectionLayer.changed();
-        console.log(selection);
-        // selects1.push(fid);
-        // console.log('form: ', selects1)
-        return ["me"];
+        // console.log(selection);
       }
-    };
-
+    }
     map.on('click', function ( e) {
       // map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
       //   let clickedCoordinate = e.coordinate;
@@ -156,8 +148,7 @@ export class SalepointOlComponent implements OnInit {
       //
       //   console.log(clickedFeatureId);// get the codes
       // })
-      let ss =  vectorLayer.getFeatures(e.pixel).then( doBa())
-      console.log('ss', ss)
+      vectorLayer.getFeatures(e.pixel).then( selectMap())
     });
 
      this.geoList = selects1;
@@ -186,7 +177,7 @@ export class SalepointOlComponent implements OnInit {
 
   }
 
-  onSubmit(formValue){
+  onSubmit(){
     this.service.getGeos(this.geoList);
   }
 }

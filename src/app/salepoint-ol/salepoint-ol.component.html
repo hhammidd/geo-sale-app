@@ -15,13 +15,13 @@
 </head>
 <body>
 <h2>My Map</h2>
-<form #userPost="ngForm" (ngSubmit)="onSubmit(userPost.value)">
+<form (ngSubmit)="onSubmit()">
 <div id="map" class="map"></div>
 <div class="overlay-container">
 <span class="overlay-text" id="feature-id"></span><br>
   <span class="overlay-text" id="feature-name"></span><br>
 </div><br>
-  <br><button id= "dd" type="submit filter">Filter on geo</button>
+  <br><button type="submit filter">Filter on geo</button>
 </form>
 </body>
 </html>

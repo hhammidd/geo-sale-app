@@ -26,7 +26,7 @@ export class SalepointOlService {
       .subscribe( data => {
         console.log('data from backend: ' , data);
         this.salePointTos = data.salePointTos as SalePointTo[];
-        console.log('data after map: ', this.salePointTos);
+        // console.log('data after map: ', this.salePointTos);
       });
     console.log('final object in service: ', this.geosTo);
   }
