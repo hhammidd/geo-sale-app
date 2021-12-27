@@ -24,6 +24,7 @@ import {GeofilteringComponent} from "./sale-points/geofiltering/geofiltering.com
 import { GeoSalesComponent } from './sale-points/geo-sales/geo-sales.component';
 import {SpmainService} from "./sale-points/shared/spmain.service";
 import { SalepointOlComponent } from './salepoint-ol/salepoint-ol.component';
+import {SalepointOlService} from "./salepoint-ol/shared/salepoint-ol.service";
 
 
 @NgModule({
@@ -56,7 +57,7 @@ import { SalepointOlComponent } from './salepoint-ol/salepoint-ol.component';
     MatCardModule,
     MatMenuModule,
   ],
-  providers: [SpmainService],
+  providers: [SpmainService, SalepointOlService],
   bootstrap: [AppComponent],
   entryComponents: [HomeComponent, SalePointsComponent, SalepointOlComponent]
 })

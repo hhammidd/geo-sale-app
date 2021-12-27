@@ -10,12 +10,13 @@ import TileLayer from "ol/layer/Tile";
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import GeoJSON from 'ol/format/GeoJSON';
-import {Fill, Stroke, Style, Text} from 'ol/style';
-import {style} from "@angular/animations";
-import {bbox as bboxStrategy} from 'ol/loadingstrategy';
-import Control from "ol/control/Control";
+import {Fill, Stroke, Style} from 'ol/style';
 import LayerGroup from "ol/layer/Group";
 import Overlay from "ol/Overlay";
+import {stringify} from "querystring";
+import {returnOrUpdate} from "ol/extent";
+
+
 
 const place = [37.41, 8.82];
 const point = new Point(place);
@@ -28,11 +29,13 @@ const point = new Point(place);
 })
 export class SalepointOlComponent implements OnInit {
 
-  // map;
-  wms;
+
+  test = new Set<string>();
 
   constructor() {
   }
+
+  selects: string[] = [];
 
   ngOnInit(): void {
     this.initializeMap();
@@ -40,59 +43,16 @@ export class SalepointOlComponent implements OnInit {
 
   initializeMap() {
 
-    // const style = new Style({
-    //   fill: new Fill({
-    //     color: 'rgba(255, 255, 255, 0.6)',
-    //   }),
-    //   stroke: new Stroke({
-    //     color: '#319FD3',
-    //     width: 1,
-    //   }),
-    //   text: new Text({
-    //     font: '12px Calibri,sans-serif',
-    //     fill: new Fill({
-    //       color: '#000',
-    //     }),
-    //     stroke: new Stroke({
-    //       color: '#fff',
-    //       width: 3,
-    //     }),
-    //   }),
-    // });
-
-    // const vectorSource = new VectorSource({
-    //   format: new GeoJSON(),
-    //   url: function (extent) {
-    //     return (
-    //       'http://94.130.228.242:8082/geoserver/wfs?request=GetFeature&version=1.1.0&typeName=topp:states&formatName=GML2&FILTER=%3Cogc:Filter%20xmlns:ogc=%22http://www.opengis.net/ogc%22%3E%3Cogc:PropertyIsGreaterThan%3E%3Cogc:Div%3E%3Cogc:PropertyName%3EMANUAL%3C/ogc:PropertyName%3E%3Cogc:PropertyName%3EWORKERS%3C/ogc:PropertyName%3E%3C/ogc:Div%3E%3Cogc:Literal%3E0.25%3C/ogc:Literal%3E%3C/ogc:PropertyIsGreaterThan%3E%3C/ogc:Filter%3E' +
-    //       extent.join(',') +
-    //       ',EPSG:3857'
-    //     );
-    //   },
-    //   strategy: bboxStrategy,
-    // });
-    //
-    // const vector = new VectorLayer({
-    //   source: vectorSource,
-    //
-    //   style: new Style({
-    //     stroke: new Stroke({
-    //       color: 'rgba(0, 0, 255, 1.0)',
-    //       width: 2,
-    //     }),
-    //   }),
-    // });
-
-    // const regionBoarder = new TileLayer({
-    //   source: new TileWMS({
-    //     url: 'http://localhost:8082/geoserver/geosale/wms',
-    //     params: {'LAYERS': 'geosale:ITA_adm1', 'TILED': true},
-    //     // params: {'LAYERS': 'geosale:gadm36_NLD_2', 'TILED': true},
-    //     serverType: 'geoserver',
-    //     // transition: 0,
-    //   }),
-    //   opacity: 0.5
-    // });
+    const regionBoarder = new TileLayer({
+      source: new TileWMS({
+        url: 'http://localhost:8082/geoserver/geosale/wms',
+        params: {'LAYERS': 'geosale:ITA_adm1', 'TILED': true},
+        // params: {'LAYERS': 'geosale:gadm36_NLD_2', 'TILED': true},
+        serverType: 'geoserver',
+        // transition: 0,
+      }),
+      opacity: 0.5
+    });
 
     const country = new Style({
       stroke: new Stroke({
@@ -100,17 +60,17 @@ export class SalepointOlComponent implements OnInit {
         width: 1,
       }),
       fill: new Fill({
-        color: 'rgba(20,20,20,0.9)',
+        color: 'rgb ( 185, 125, 75, 0.1 )',
       }),
     });
 
     const selectedCountry = new Style({
       stroke: new Stroke({
-        color: 'rgba(200,20,20,0.8)',
+        color: 'rgb(46,139,87,0.9)',
         width: 2,
       }),
       fill: new Fill({
-        color: 'rgba(200,20,20,0.4)',
+        color: 'rgb(46,139,87,0.5)',
       }),
     });
 
@@ -122,12 +82,13 @@ export class SalepointOlComponent implements OnInit {
         // url: 'http://localhost:8081/geoserver/geosale/wms?service=WMS&version=1.1.0&request=GetMap&layers=geosale%3Agadm36_NLD_2&bbox=3.3607819080352783%2C50.72349166870117%2C7.227095127105656%2C53.55458450317383&width=768&height=562&srs=EPSG%3A4326&styles=&format=application/openlayers',
         format: new GeoJSON(),
       }),
-      style: country
+      style: country,
+      opacity: 0.1 // Already in country
     });
 
     const baseMap = new Tile({source: new OSM()});
     const grp = new LayerGroup({
-      layers: [baseMap, vectorLayer],
+      layers: [baseMap, vectorLayer, regionBoarder],
     });
     //
 
@@ -163,7 +124,45 @@ export class SalepointOlComponent implements OnInit {
     const overLayFeatureId = document.getElementById('feature-id')!;
 
 
-    map.on('click', function (e) {
+    let selects1  = new Set<string>();
+
+    function doBa() {
+      return function(features) {
+        if (!features.length) {
+          selection = {};
+          selects1.clear();
+          selectionLayer.changed();
+          return;
+        }
+        const feature = features[0];
+        if (!feature) {
+          return;
+        }
+
+        const fid : any = feature.getId();
+        if (fid in selection) { // remove double click
+          console.log('', fid);
+          selects1.delete(fid.toString());
+          delete selection[fid];
+          selectionLayer.changed();
+          return;
+        }
+        selects1.add(fid);
+        console.log('se', selects1);
+
+        selection[fid] = feature;
+        console.log('feuture ', fid.valueOf());
+        selectionLayer.changed();
+        console.log(selection);
+        // selects1.push(fid);
+        // console.log('form: ', selects1)
+        return ["me"];
+      }
+    };
+
+
+
+    map.on('click', function ( e) {
       // map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
       //   let clickedCoordinate = e.coordinate;
       //   let clickedFeatureId : any = feature.getId();
@@ -172,22 +171,11 @@ export class SalepointOlComponent implements OnInit {
       //
       //   console.log(clickedFeatureId);// get the codes
       // })
-      vectorLayer.getFeatures(e.pixel).then(function(features) {
-        if (!features.length) {
-          selection = {};
-          selectionLayer.changed();
-          return;
-        }
-        const feature = features[0];
-        if (!feature) {
-          return;
-        }
-        const fid : any = feature.getId();
-        selection[fid] = feature;
-        selectionLayer.changed();
-        console.log(feature.get('data'));
-      })
-    })
+      let ss =  vectorLayer.getFeatures(e.pixel).then( doBa())
+      console.log('ss', ss)
+    });
+
+     this.test = selects1;
     // map.on('click', function (e) {
     //   console.log(e.coordinate);
     // })
@@ -199,6 +187,7 @@ export class SalepointOlComponent implements OnInit {
     //TODO Add the swith of Layers
     // TODO change Style and color
     // TODO test working with wms
+    //TODO Add Geo-code column to comune and ...
 
     //TODO Call the filter
     //TODO Add Form Sale point under the map
@@ -210,5 +199,10 @@ export class SalepointOlComponent implements OnInit {
     // TODO Create the parameter
     // TODO Add potential to PVs
 
+  }
+
+  onSubmit(formValue){
+    console.log('submit kjhgfdfghjkl;lkjhgfghjklkjhgfg' , this.test);
+    // this.test =[];
   }
 }
