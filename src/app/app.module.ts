@@ -30,6 +30,8 @@ import { AreaComponent } from './dashboard/shared/widgets/area/area.component';
 import { HighchartsChartModule } from 'highcharts-angular';
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {CardComponent} from "./dashboard/shared/widgets/card/card.component";
+import { PieComponent } from './dashboard/shared/widgets/pie/pie.component';
+import {DashboardService} from "./dashboard/shared/dashboard.service";
 
 
 @NgModule({
@@ -44,6 +46,7 @@ import {CardComponent} from "./dashboard/shared/widgets/card/card.component";
     DashboardComponent,
     AreaComponent,
     CardComponent,
+    PieComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,9 +70,9 @@ import {CardComponent} from "./dashboard/shared/widgets/card/card.component";
     HighchartsChartModule,
     FlexLayoutModule
   ],
-  providers: [SpmainService, SalepointOlService],
+  providers: [SpmainService, SalepointOlService, DashboardService],
   bootstrap: [AppComponent],
   entryComponents: [HomeComponent, SalePointsComponent, SalepointOlComponent, DashboardComponent
-  , AreaComponent, CardComponent]
+  , AreaComponent, CardComponent, PieComponent]
 })
 export class AppModule { }
