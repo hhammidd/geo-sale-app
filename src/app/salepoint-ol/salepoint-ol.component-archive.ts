@@ -106,13 +106,13 @@ export class SalepointOlComponent implements OnInit {
     });
     map.addOverlay(overlayLayer);
 
-    let geoSelected  = new Set<string>();
+    let selects1  = new Set<string>();
 
     function selectMap() {
       return function(features) {
         if (!features.length) {
           selection = {};
-          geoSelected.clear();
+          selects1.clear();
           selectionLayer.changed();
           return;
         }
@@ -124,25 +124,55 @@ export class SalepointOlComponent implements OnInit {
         const fid : any = feature.getId();
         if (fid in selection) { // remove double click
           console.log('', fid);
-          geoSelected.delete(fid.toString());
+          selects1.delete(fid.toString());
           delete selection[fid];
           selectionLayer.changed();
           return;
         }
-        geoSelected.add(fid);
+        selects1.add(fid);
+        console.log('se', selects1);
+
         selection[fid] = feature;
+        // console.log('feuture ', fid.valueOf());
         selectionLayer.changed();
+        // console.log(selection);
       }
     }
     map.on('click', function ( e) {
+      // map.forEachFeatureAtPixel(e.pixel, function (feature, layer) {
+      //   let clickedCoordinate = e.coordinate;
+      //   let clickedFeatureId : any = feature.getId();
+      //   overlayLayer.setPosition(clickedCoordinate);
+      //   overLayFeatureId.innerHTML = clickedFeatureId;
+      //
+      //   console.log(clickedFeatureId);// get the codes
+      // })
       vectorLayer.getFeatures(e.pixel).then( selectMap())
     });
 
-     this.geoList = geoSelected;
+     this.geoList = selects1;
+    // map.on('click', function (e) {
+    //   console.log(e.coordinate);
+    // })
+
+    //TODO Show name of chosen from DB in a grid
+    //TODO Add the swith of Layers
+    // TODO change Style and color
+    // TODO test working with wms
+    //TODO Add Geo-code column to comune and ...
+
+    //TODO Add Form Sale point under the map
+    //TODO Add the Province
+    //TODO Add the Comune
+    //TODO test the performane
+    // TODO Add the netherlands
+    // TODO Add the switcher fro markets
+    // TODO Create the parameter
+    // TODO Add potential to PVs
+
   }
 
   onSubmit(){
-    console.log('geo to be filtered: ', this.geoList);
     this.service.getGeos(this.geoList);
   }
 }

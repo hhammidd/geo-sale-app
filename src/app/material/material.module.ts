@@ -18,6 +18,7 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatDividerModule} from "@angular/material/divider";
 
 
 @NgModule({
@@ -58,8 +59,8 @@ import {MatGridListModule} from "@angular/material/grid-list";
     MatIconModule,
     MatPaginatorModule,
     MatSortModule,
-    MatTreeModule
-
+    MatTreeModule,
+    MatDividerModule
   ],
   declarations: []
 })

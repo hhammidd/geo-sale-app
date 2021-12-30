@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {SalePointsComponent} from "./sale-points/sale-points.component";
 import {SalepointOlComponent} from "./salepoint-ol/salepoint-ol.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
 
 
 const routes: Routes = [
@@ -26,6 +27,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'salepoints', component: SalePointsComponent},
   {path: 'salepointol', component: SalepointOlComponent},
+  {path: 'dashboard', component: DashboardComponent},
   // {path: 'salepointdashboardmap', component: SalepointdashboardmapComponent},
   // {path: '404', component: NotFoundComponent},
   // {path: '**', redirectTo: '/404'}

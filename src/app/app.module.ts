@@ -25,6 +25,11 @@ import { GeoSalesComponent } from './sale-points/geo-sales/geo-sales.component';
 import {SpmainService} from "./sale-points/shared/spmain.service";
 import { SalepointOlComponent } from './salepoint-ol/salepoint-ol.component';
 import {SalepointOlService} from "./salepoint-ol/shared/salepoint-ol.service";
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AreaComponent } from './dashboard/shared/widgets/area/area.component';
+import { HighchartsChartModule } from 'highcharts-angular';
+import {FlexLayoutModule} from "@angular/flex-layout";
+import {CardComponent} from "./dashboard/shared/widgets/card/card.component";
 
 
 @NgModule({
@@ -36,6 +41,9 @@ import {SalepointOlService} from "./salepoint-ol/shared/salepoint-ol.service";
     GeofilteringComponent,
     GeoSalesComponent,
     SalepointOlComponent,
+    DashboardComponent,
+    AreaComponent,
+    CardComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,9 +64,12 @@ import {SalepointOlService} from "./salepoint-ol/shared/salepoint-ol.service";
     MatGridListModule,
     MatCardModule,
     MatMenuModule,
+    HighchartsChartModule,
+    FlexLayoutModule
   ],
   providers: [SpmainService, SalepointOlService],
   bootstrap: [AppComponent],
-  entryComponents: [HomeComponent, SalePointsComponent, SalepointOlComponent]
+  entryComponents: [HomeComponent, SalePointsComponent, SalepointOlComponent, DashboardComponent
+  , AreaComponent, CardComponent]
 })
 export class AppModule { }
