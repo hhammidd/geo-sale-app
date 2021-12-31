@@ -6,6 +6,25 @@ import {IDropdownSettings} from "ng-multiselect-dropdown";
 import {ProvinceDto} from "../model/ProvinceDto";
 import {ComuneDto} from "../model/ComuneDto";
 import {FormControl, FormGroup} from "@angular/forms";
+import {MatPaginator} from "@angular/material/paginator";
+import {SalePointTo} from "../model/SalePointTo";
+import {MatTableDataSource} from "@angular/material/table";
+
+const ELEMENT_DATA: SalePointTo[] = [
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+  {id: 1, fieldCode: 'kit kat', name: 'NL', geoId : 1, cap : 'aqq', comune : 'sws', province : 'sw', country : 'sw', tel :'s', psw : 'sw', username: 's', coords: 'ss'},
+
+];
 
 @Component({
   selector: 'app-geofiltering',
@@ -48,8 +67,13 @@ export class GeofilteringComponent implements OnInit {
   public loadContent = false;
 
   // salePointsInfoTo: SalePointsInfoTo;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  salePointTos: SalePointTo[] = [];
+  dataSource = new MatTableDataSource(this.salePointTos);
+
 
   ngOnInit() {
+    setTimeout(() => this.dataSource.paginator = this.paginator);
     this.service.getRegions().subscribe(res => this.regionDropdownList = res);
     this.service.getProvinces().subscribe(res => this.provinceDropdownList = res);
     this.service.getComunes().subscribe(res => this.comuneDropdownList = res);
@@ -123,6 +147,8 @@ export class GeofilteringComponent implements OnInit {
   get f() {
     return this.formGroup.controls;
   }
+  displayedColumns: string[] = ['name', 'province', 'comune', 'cap', 'tel', 'fieldCode'];
+
 
 
   public save() {
@@ -132,8 +158,15 @@ export class GeofilteringComponent implements OnInit {
     }
 
     console.log(this.formGroup.value);
-    this.service.salePointsOnGeo(this.formGroup.value);
-
+    this.service.salePointsOnGeo(this.formGroup.value)
+      .subscribe( data => {
+        console.log('data from backend: ' , data);
+        this.salePointTos = data.salePointTos as SalePointTo[];
+        this.dataSource = new MatTableDataSource(this.salePointTos);
+        setTimeout(() => this.dataSource.paginator = this.paginator);
+        console.log('data after map: ', this.salePointTos);
+        console.log('data for datasource: ', this.dataSource);
+      });
   }
 
   public resetForm() {

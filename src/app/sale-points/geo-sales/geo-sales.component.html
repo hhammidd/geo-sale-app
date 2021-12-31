@@ -1,4 +1,5 @@
-<mat-table [dataSource]="service.salePointTos" matSort class="mat-elevation-z8">
+<div class="mat-elevation-z8">
+<mat-table [dataSource]="service.dataSource1" matSort>
 
   <ng-container matColumnDef="name">
     <mat-header-cell *matHeaderCellDef mat-sort-header> name </mat-header-cell>
@@ -43,5 +44,5 @@
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
 <mat-paginator [pageSizeOptions]="[2, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
-
+</div>
 

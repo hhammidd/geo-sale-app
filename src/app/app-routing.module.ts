@@ -4,6 +4,7 @@ import {HomeComponent} from "./home/home.component";
 import {SalePointsComponent} from "./sale-points/sale-points.component";
 import {SalepointOlComponent} from "./salepoint-ol/salepoint-ol.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
+import {GeofilteringComponent} from "./sale-points/geofiltering/geofiltering.component";
 
 
 const routes: Routes = [
@@ -25,7 +26,7 @@ const routes: Routes = [
   //   ]
   // },
   {path: 'home', component: HomeComponent},
-  {path: 'salepoints', component: SalePointsComponent},
+  {path: 'salepoints', component: GeofilteringComponent},
   {path: 'salepointol', component: SalepointOlComponent},
   {path: 'dashboard', component: DashboardComponent},
   // {path: 'salepointdashboardmap', component: SalepointdashboardmapComponent},
