@@ -6,8 +6,7 @@ import {HttpClient} from "@angular/common/http";
 import {RegionsDto} from "../model/RegionsDto";
 import {ProvinceDto} from "../model/ProvinceDto";
 import {MatPaginator} from "@angular/material/paginator";
-import { Observable, throwError } from 'rxjs';
-import {MatTableDataSource} from "@angular/material/table";
+import {Observable, throwError} from 'rxjs';
 
 
 @Injectable({
@@ -20,8 +19,6 @@ export class SpmainService {
   private usersUrl: string;
   private geoUrl: string;
 
-  // @ViewChild(MatPaginator) paginator: MatPaginator;
-  // dataSource =  new MatTableDataSource(this.salePointTos);
 
   constructor(private http: HttpClient) {
     // this.usersUrl = 'http://94.130.228.242:31430/';
@@ -29,15 +26,11 @@ export class SpmainService {
     this.geoUrl = 'http://localhost:8089/';
   }
 
-  // url_ = '/assets/data/regions.json';
-
   getRegions() {
-    // return this.http.get<RegionsDto[]>(this.url_ );
     return this.http.get<RegionsDto[]>(this.geoUrl + '/region-config/names');
   }
 
   getProvinces() {
-    // return this.http.get<RegionsDto[]>(this.url_ );
     return this.http.get<ProvinceDto[]>(this.geoUrl + '/province-config/names');
   }
 
@@ -45,10 +38,9 @@ export class SpmainService {
     // return this.http.get<RegionsDto[]>(this.url_ );
     return this.http.get<ComuneDto[]>(this.geoUrl + '/comune-config/names');
   }
-  dataSource1 : any = [];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // dataSource = new MatTableDataSource(this.salePointTos);
+
   salePointsOnGeo(formData: SalePointsInfoTo): Observable<SalePointsInfoTo> {
     console.log('form data filter : ', formData);
     console.log('URL : ', this.usersUrl + 'sale-point-geo/filter-sale-point-test');

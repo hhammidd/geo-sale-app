@@ -170,11 +170,8 @@ export class GeofilteringComponent implements OnInit {
   }
 
   public resetForm() {
-    // beacuse i need select all crickter by default when i click on reset button.
     this.setForm();
     this.multiSelect.toggleSelectAll();
-    // i try below variable isAllItemsSelected reference from your  repository but still not working
-    // this.multiSelect.isAllItemsSelected = true;
   }
 
   onCreate() {
