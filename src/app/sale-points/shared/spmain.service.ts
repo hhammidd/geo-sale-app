@@ -23,7 +23,7 @@ export class SpmainService {
   constructor(private http: HttpClient) {
     // this.usersUrl = 'http://94.130.228.242:31430/';
     this.usersUrl = 'http://localhost:8085/';
-    this.geoUrl = 'http://localhost:8089/';
+    this.geoUrl = 'http://localhost:8092/';
   }
 
   getRegions() {
@@ -38,6 +38,8 @@ export class SpmainService {
     // return this.http.get<RegionsDto[]>(this.url_ );
     return this.http.get<ComuneDto[]>(this.geoUrl + '/comune-config/names');
   }
+
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 

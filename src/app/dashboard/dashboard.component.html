@@ -1,3 +1,10 @@
+<p>Contaaacts</p>
+<h4>List of </h4>
+<ul>
+  <li *ngFor="let contact of evInfos">
+    {{ contact.country }}
+  </li>
+</ul>
 <div>
   <app-widget-area [data]="bigChart"></app-widget-area>
 </div>

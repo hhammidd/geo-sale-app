@@ -1,11 +1,21 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {ComuneDto} from "../../sale-points/model/ComuneDto";
+import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
+import {RegionsDto} from "../../sale-points/model/RegionsDto";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  constructor() { }
+  private url: string;
+  private geoUrl: string;
+
+  constructor(private http: HttpClient) {
+    this.url = 'http://localhost:8089/';
+    this.geoUrl = 'http://localhost:8092/';
+  }
 
   bigChart() {
     return [{
@@ -25,12 +35,24 @@ export class DashboardService {
       data: [2, 2, 2, 6, 13, 30, 46]
     }];
   }
+  evInfos: EvInfoTo[] = [];
+
 
   cards() {
-    return [71, 78, 39, 66];
+    this.getEvInfos();
+    return [100, 100, 10, 10];
+  }
+
+
+
+  getEvInfos() {
+    console.log("ss")
+    console.log("cc ", this.url + 'ev-infos')
+    return this.http.get<EvInfoTo[]>(this.url + '/ev-infos');
   }
 
   pieChart() {
+
     return [{
       name: 'Chrome',
       y: 61.41,
