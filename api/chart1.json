@@ -1,32 +1,52 @@
 {
   "chartValues": [
     {
-      "name": "ev1",
+      "name": "JAN",
       "y": 100
     },
     {
-      "name": "ev1",
-      "y": 200
+      "name": "FEB",
+      "y": 120
     },
     {
-      "name": "ev1",
-      "y": 25
+      "name": "MARCH",
+      "y": 190
     },
     {
-      "name": "ev1",
-      "y": 25
+      "name": "APR",
+      "y": 160
     },
     {
-      "name": "ev2",
-      "y": 25
+      "name": "MAY",
+      "y": 170
     },
     {
-      "name": "ev3",
-      "y": 25
+      "name": "JUN",
+      "y": 120
     },
     {
-      "name": "ev4",
-      "y": 25
+      "name": "JUL",
+      "y": 110
+    },
+    {
+      "name": "AUG",
+      "y": 110
+    },
+    {
+      "name": "SEP",
+      "y": 115
+    },
+    {
+      "name": "OCT",
+      "y": 110
+    },
+    {
+      "name": "NOV",
+      "y": 170
+    },
+    {
+      "name": "DEC",
+      "y": 160
     }
   ]
 }
