@@ -32,7 +32,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {CardComponent} from "./dashboard/shared/widgets/card/card.component";
 import { PieComponent } from './dashboard/shared/widgets/pie/pie.component';
 import {DashboardService} from "./dashboard/shared/dashboard.service";
-
+import { Chart1Component } from './dashboard/shared/widgets/chart1/chart1.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import {DashboardService} from "./dashboard/shared/dashboard.service";
     AreaComponent,
     CardComponent,
     PieComponent,
+    Chart1Component,
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,8 @@ import {DashboardService} from "./dashboard/shared/dashboard.service";
     HighchartsChartModule,
     FlexLayoutModule
   ],
-  providers: [SpmainService, SalepointOlService, DashboardService],
+  providers: [SpmainService, SalepointOlService, DashboardService,
+  ],
   bootstrap: [AppComponent],
   entryComponents: [HomeComponent, SalePointsComponent, SalepointOlComponent, DashboardComponent
   , AreaComponent, CardComponent, PieComponent]

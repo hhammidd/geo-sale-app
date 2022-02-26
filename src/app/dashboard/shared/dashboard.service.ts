@@ -1,8 +1,10 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ComuneDto} from "../../sale-points/model/ComuneDto";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
-import {RegionsDto} from "../../sale-points/model/RegionsDto";
+import {throwError} from "rxjs";
+import { map } from "rxjs/operators"
+import {PieChartTo} from "../../sale-points/model/PieChartTo";
+import {Chart1} from "./model/Chart1";
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +13,12 @@ export class DashboardService {
 
   private url: string;
   private geoUrl: string;
+  private dummyUrl: string;
 
   constructor(private http: HttpClient) {
     this.url = 'http://localhost:8089/';
     this.geoUrl = 'http://localhost:8092/';
+    this.dummyUrl = 'http://localhost:3000/';
   }
 
   bigChart() {
@@ -35,53 +39,47 @@ export class DashboardService {
       data: [2, 2, 2, 6, 13, 30, 46]
     }];
   }
-  evInfos: EvInfoTo[] = [];
 
+  evInfos: EvInfoTo[] = [];
+  // pieChart: any[] = [{name: 'ss', y: 10}, {name: 'bb', y: 10}, {name: 'bb', y: 80}];
+  pieChart: any[] = [];
 
   cards() {
-    this.getEvInfos();
     return [100, 100, 10, 10];
   }
 
+  getDummy() {
+    return this.http.get(this.dummyUrl + 'chartValues');
+  }
 
+  getDummyw() {
+    // return this.http.get("https://samples.openweathermap.org/data/2.5/history/city?q=Warren,OH&appid=b6907d289e10d714a6e88b30761fae22")
+    return this.http.get(this.dummyUrl + 'chartValues')
+      .toPromise().then((data) => { return data})
+  }
+
+  errorHandler(error: HttpErrorResponse) {
+    return throwError(error.message || "server error.");
+  }
 
   getEvInfos() {
     console.log("ss")
     console.log("cc ", this.url + 'ev-infos')
-    return this.http.get<EvInfoTo[]>(this.url + '/ev-infos');
+    return this.http.get<EvInfoTo[]>(this.url + '/ev-infos')
+      .pipe(map(res1 => res1.map(item => ({name: item.country, y: item.amount}))))
+      .subscribe(res => {
+        this.pieChart = res
+      });
   }
 
-  pieChart() {
+  // pieChart() {
+  //   return this.http.get<EvInfoTo[]>(this.url + '/ev-infos');
+  // }
+  getPiChart() {
+    return this.http.get<EvInfoTo[]>(this.url + '/ev-infos')
 
-    return [{
-      name: 'Chrome',
-      y: 61.41,
-      sliced: true,
-      selected: true
-    }, {
-      name: 'Internet Explorer',
-      y: 11.84
-    }, {
-      name: 'Firefox',
-      y: 10.85
-    }, {
-      name: 'Edge',
-      y: 4.67
-    }, {
-      name: 'Safari',
-      y: 4.18
-    }, {
-      name: 'Sogou Explorer',
-      y: 1.64
-    }, {
-      name: 'Opera',
-      y: 1.6
-    }, {
-      name: 'QQ',
-      y: 1.2
-    }, {
-      name: 'Other',
-      y: 2.61
-    }]
+    // return this.http.get<EvInfoTo[]>(this.url + '/ev-infos');
+
+    // return []
   }
 }

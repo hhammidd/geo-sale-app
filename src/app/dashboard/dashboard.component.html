@@ -1,8 +1,8 @@
 <p>Contaaacts</p>
 <h4>List of </h4>
 <ul>
-  <li *ngFor="let contact of evInfos">
-    {{ contact.country }}
+  <li *ngFor="let contact of pieChart">
+    {{ contact }}
   </li>
 </ul>
 <div>
@@ -41,6 +41,6 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <div fxLayout="60">Table</div>
   <div fxLayout="40">
-    <app-widget-pie [data]="pieChart"></app-widget-pie>
+    <app-widget-pie ></app-widget-pie>
   </div>
 </div>

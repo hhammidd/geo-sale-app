@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DashboardService} from "./shared/dashboard.service";
 import {RegionsDto} from "../sale-points/model/RegionsDto";
 import {EvInfoTo} from "../sale-points/model/EvInfoTo";
+import {PieChartTo} from "../sale-points/model/PieChartTo";
+import {map} from "rxjs/operators";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,16 +15,38 @@ export class DashboardComponent implements OnInit {
 
   bigChart: any = [];
   cards: number[] = [];
-  pieChart: any = [];
+  pieChart: any[] = [];
+  // pieChart: any[] = []
   regions: RegionsDto[] = [];
-  constructor(private dashboardService: DashboardService) { }
-  evInfos: EvInfoTo[];
+
+  constructor(private dashboardService: DashboardService) {
+
+  }
+
+  evInfos: EvInfoTo[] = [];
+  results: PieChartTo[] = [{name: "ss", y: 10}, {name: "bb", y: 10}, {name: "bb", y: 80}];
 
   ngOnInit(): void {
     this.bigChart = this.dashboardService.bigChart();
-    this.dashboardService.getEvInfos().subscribe(res => this.evInfos = res);
+    // this.dashboardService.getEvInfos().subscribe(res => this.evInfos = res);
     this.cards = this.dashboardService.cards();
-    this.pieChart = this.dashboardService.pieChart();
+    this.dashboardService.getDummy()
+      .subscribe(res => {
+        this.pieChart = res as PieChartTo[];
+      });
+    console.log("sqwssqwsqwswqsswswssd ", this.bigChart)
+    console.log("ssswswswssd ", this.evInfos)
+    console.log("sssd ", this.pieChart)
   }
+
+  // private getPiChart(): Subscription {
+  //    return this.dashboardService.pieChart()
+  //      .pipe(
+  //     map(res => res.map(item => ({name: item.country, y: item.amount})))
+  //   )
+  //      .subscribe(res => {
+  //     this.pieChart = res as PieChartTo[];
+  //     console.log("sssd ", this.pieChart)
+  //   });
 
 }
