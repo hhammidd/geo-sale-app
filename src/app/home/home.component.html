@@ -1,13 +1,80 @@
-<div fxLayout="row" fxLayoutAlignn="space-between center" fxLayoutGap="20px" class="stats-cards">
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+
   <mat-card fxFlex="50">
-    <h3>House price in Den Haag</h3>
+    <canvas id="canvas">{{chart}}</canvas>
+  </mat-card>
+
+
+  <mat-card fxFlex="50">
+    <canvas id="canvas2">{{chart2}}</canvas>
+  </mat-card>
+</div>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <mat-card fxFlex="50">
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+                      style="width: 100%; display: block;">
+    </highcharts-chart>
   </mat-card>
 
   <mat-card fxFlex="50">
-    <h3></h3>
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+                      style="width: 100%; display: block;">
+    </highcharts-chart>
+  </mat-card>
+</div>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+
+  <mat-card fxFlex="50">
+    <div id="chart-column"></div>
   </mat-card>
 
+
+  <mat-card fxFlex="50">
+    <canvas id="canvas6">{{chart2}}</canvas>
+  </mat-card>
 </div>
-<div width="400" height="400">
-  <canvas id="canvas">{{chart}}</canvas>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <mat-card fxFlex="50">
+    <canvas id="canvas7">{{chart}}</canvas>
+  </mat-card>
+
+  <mat-card fxFlex="50">
+    <canvas id="canvas8">{{chart2}}</canvas>
+  </mat-card>
 </div>
+
+<br>
+
+<mat-divider></mat-divider>
+
+<br>
+
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <mat-card fxFlex="50">
+    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+                      style="width: 100%; display: block;">
+    </highcharts-chart>
+  </mat-card>
+</div>
+

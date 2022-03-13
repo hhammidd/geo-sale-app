@@ -14,11 +14,13 @@ export class DashboardService {
   private url: string;
   private geoUrl: string;
   private dummyUrl: string;
+  private dummyUrl1: string;
 
   constructor(private http: HttpClient) {
     this.url = 'http://localhost:8089/';
     this.geoUrl = 'http://localhost:8092/';
     this.dummyUrl = 'http://localhost:3000/';
+    this.dummyUrl1 = 'http://localhost:3001/';
   }
 
   bigChart() {
@@ -54,7 +56,13 @@ export class DashboardService {
 
   getDummyw() {
     // return this.http.get("https://samples.openweathermap.org/data/2.5/history/city?q=Warren,OH&appid=b6907d289e10d714a6e88b30761fae22")
-    return this.http.get(this.dummyUrl + 'chartValues')
+    return this.http.get(this.dummyUrl1 + 'chartValues')
+      .toPromise().then((data) => { return data})
+  }
+
+  getCountryBarCharts() {
+
+    return this.http.get(this.dummyUrl + 'barValues')
       .toPromise().then((data) => { return data})
   }
 
@@ -82,4 +90,5 @@ export class DashboardService {
 
     // return []
   }
+
 }
