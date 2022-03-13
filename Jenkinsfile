@@ -20,37 +20,38 @@ pipeline {
 //  }
   agent any
   stages {
-        stage("get version") {
-            steps {
-                script {
-                    if ("${IMAGE_TAG}"?.trim()) {
-                        stage('No need to checkout,') {
-                            sh 'echo ${IMAGE_TAG}, image maybe already exist'
-                        }
-                    } else {
-                        stage('checkout code') {
-                          steps {
-                            buildangularapp("${service_name}")
-                          }
-                        }
-
-                      stage("start build and push image") {
-                        steps {
-                          buildangularimage("3")
-                        }
-                      }
-
-                    }
-                }
+    stage("get version") {
+      steps {
+        script {
+          if ("${IMAGE_TAG}"?.trim()) {
+            stage('No need to checkout,') {
+              sh 'echo ${IMAGE_TAG}, image maybe already exist'
             }
+          } else {
+            stage('checkout code') {
+              steps {
+//                buildangularapp("${service_name}")
+                git 'https://github.com/hhammidd/${service_name}.git'
+                sh "docker build -t ${servicename}:3 ."
+              }
+            }
+
+//            stage("start build and push image") {
+//              steps {
+//                buildangularimage("3")
+//              }
+//            }
+
+          }
         }
+      }
+    }
 
 //    stage("checkout code") {
 //      steps {
 //        buildangularapp("${service_name}")
 //      }
 //    }
-
 
 
     stage("deploy") {
