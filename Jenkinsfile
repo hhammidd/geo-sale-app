@@ -37,13 +37,13 @@ pipeline {
 //        }
     stage("checkout code") {
       steps {
-        buildapp("${service_name}")
+        buildangularapp("${service_name}")
       }
     }
 
     stage("start build and push image") {
       steps {
-        buildimage("2")
+        buildangularimage("2")
       }
     }
 
