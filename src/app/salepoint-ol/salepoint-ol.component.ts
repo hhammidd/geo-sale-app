@@ -37,7 +37,7 @@ export class SalepointOlComponent implements OnInit {
 
     const regionBoarder = new TileLayer({
       source: new TileWMS({
-        url: 'http://localhost:8082/geoserver/geosale/wms',
+        url: 'http://94.130.228.242:8082/geoserver/geosale/wms',
         params: {'LAYERS': 'geosale:ITA_adm1', 'TILED': true},
         serverType: 'geoserver',
       }),
@@ -67,7 +67,7 @@ export class SalepointOlComponent implements OnInit {
 
     const vectorLayer = new VectorLayer({
       source: new VectorSource({
-        url: 'http://localhost:8082/geoserver/geosale/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geosale%3AITA_adm1&maxFeatures=50&outputFormat=application%2Fjson',
+        url: 'http://94.130.228.242:8082/geoserver/geosale/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geosale%3AITA_adm1&maxFeatures=50&outputFormat=application%2Fjson',
         format: new GeoJSON(),
       }),
       style: country,
