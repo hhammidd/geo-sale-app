@@ -21,7 +21,8 @@ pipeline {
 //  }
   agent any
   stages {
-    stage("get version") {
+
+    stage("get version and build") {
       steps {
         script {
           if ("${IMAGE_TAG}"?.trim()) {
@@ -32,7 +33,6 @@ pipeline {
             stage('build image') {
               buildangularapp("${service_name}", "${version}")
             }
-
           }
         }
       }
@@ -40,9 +40,26 @@ pipeline {
 
     stage("deploy") {
       steps {
-        createangularhelm("${service_name}", "${version}", "${environment}")
+        script {
+          if ("${IMAGE_TAG}"?.trim()) {
+            stage('deploy wanted image') {
+              createangularhelm("${service_name}", "${IMAGE_TAG}", "${environment}")
+            }
+          } else {
+            stage('deploy new version') {
+              createangularhelm("${service_name}", "${version}", "${environment}")
+            }
+          }
+        }
       }
     }
+
+//    stage("deploy") {
+//
+//      steps {
+//        createangularhelm("${service_name}", "${version}", "${environment}")
+//      }
+//    }
 
   }
 }
