@@ -28,12 +28,12 @@ pipeline {
               sh 'echo ${IMAGE_TAG}, image maybe already exist'
             }
           } else {
-            stage('checkout code') {
-              steps {
+            stage('build image') {
+//              steps {
 //                buildangularapp("${service_name}")
-                git 'https://github.com/hhammidd/${service_name}.git'
-                sh "docker build -t ${servicename}:3 ."
-              }
+              git 'https://github.com/hhammidd/${service_name}.git'
+              sh "docker build -t ${servicename}:3 ."
+//              }
             }
 
 //            stage("start build and push image") {
