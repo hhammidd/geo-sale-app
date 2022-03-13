@@ -30,30 +30,13 @@ pipeline {
             }
           } else {
             stage('build image') {
-//              steps {
-                buildangularapp("${service_name}", "${version}")
-//              git 'https://github.com/hhammidd/${service_name}.git'
-//              sh "docker build -t ${service_name}:3 ."
-//              }
+              buildangularapp("${service_name}", "${version}")
             }
-
-//            stage("start build and push image") {
-//              steps {
-//                buildangularimage("3")
-//              }
-//            }
 
           }
         }
       }
     }
-
-//    stage("checkout code") {
-//      steps {
-//        buildangularapp("${service_name}")
-//      }
-//    }
-
 
     stage("deploy") {
       steps {
