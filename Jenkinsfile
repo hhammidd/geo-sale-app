@@ -8,14 +8,11 @@ properties([
   ])
 ])
 
+def newVersion
 pipeline {
 
   agent any
   stages {
-
-    def lastVersion = sh(script: 'docker images geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
-    def lastVersionInteger =  "${lastVersion}" as Integer
-    def newVersion = lastVersionInteger + 1
 
     stage("get version, checkout  and build") {
       steps {
@@ -26,6 +23,9 @@ pipeline {
             }
           } else {
             stage('build image') {
+              def lastVersion = sh(script: 'docker images geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
+              def lastVersionInteger =  "${lastVersion}" as Integer
+              newVersion = lastVersionInteger + 1
               //sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
               buildangularapp("${service_name}", "${newVersion}")
             }
