@@ -3,7 +3,7 @@ replicaCount: 1
 #namespace: default
 service:
   type: NodePort
-  name: micro-geo-svc
+  name: geo-sale-app-svc
   nodePort: 31003
 
 ImageName: geo-sale-app
