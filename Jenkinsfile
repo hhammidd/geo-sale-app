@@ -36,7 +36,7 @@ pipeline {
 
                       stage("start build and push image") {
                         steps {
-                          buildangularimage("2")
+                          buildangularimage("3")
                         }
                       }
 
@@ -55,7 +55,7 @@ pipeline {
 
     stage("deploy") {
       steps {
-        createangularhelm("${service_name}", "${IMAGE_TAG}", "${environment}")
+        createangularhelm("${service_name}", "3", "${environment}")
       }
     }
 
