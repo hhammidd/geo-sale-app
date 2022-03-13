@@ -11,14 +11,6 @@ properties([
 
 pipeline {
 
-//  environment {
-////        registry = "hhssaaffii/${service_name}"
-////        registryCredential = ''
-////        dockerImage = ''
-//    //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
-////        IMAGE = readMavenPom().getArtifactId()
-////        VERSION = readMavenPom().getVersion()
-//  }
   agent any
   stages {
 
@@ -53,16 +45,10 @@ pipeline {
         }
       }
     }
-    stage("clean none images") {
-      steps {
-        removeNoneImages()
-      }
-    }
 
-//    stage("deploy") {
-//
+//    stage("clean none images") { // TODO add  later
 //      steps {
-//        createangularhelm("${service_name}", "${version}", "${environment}")
+//        removeNoneImages()
 //      }
 //    }
 
