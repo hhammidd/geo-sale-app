@@ -23,7 +23,8 @@ pipeline {
             }
           } else {
             stage('build image') {
-              buildangularapp("${service_name}", "${version}")
+              sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
+              buildangularapp("${service_name}", "${sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"}")
             }
           }
         }
