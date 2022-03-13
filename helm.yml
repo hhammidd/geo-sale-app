@@ -1,0 +1,21 @@
+replicaCount: 1
+tag: 8
+namespace: default
+service:
+  type: NodePort
+  name: geo-sale-app-svc
+
+ImageName: geo-sale-app
+
+port: 80
+
+appName: geo-sale-app
+
+portNumber: 80
+host: geo-sale-app.pvt
+
+image: ##DOCKER_REGISTRY##/hhssaaffii/geo-sale-app
+
+artifactory:
+  name: artifactory
+
