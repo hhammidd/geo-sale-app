@@ -24,8 +24,9 @@ pipeline {
           } else {
             stage('build image') {
               def lastVersion = sh(script: 'docker images geo-sale-app  --format=\'{{.Tag}}\' | head -1', returnStdout: true)
+              def newVersion =  1 + "${lastVersion}" as Integer
               //sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
-              buildangularapp("${service_name}", "${lastVersion}")
+              buildangularapp("${service_name}", "${newVersion}")
             }
           }
         }
