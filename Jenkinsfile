@@ -14,11 +14,11 @@ pipeline {
   agent any
   stages {
 
-    stage("get version and build") {
+    stage("get version, checkout  and build") {
       steps {
         script {
           if ("${IMAGE_TAG}"?.trim()) {
-            stage('No need to checkout,') {
+            stage('No need to checkout') {
               sh 'echo ${IMAGE_TAG}, image maybe already exist'
             }
           } else {

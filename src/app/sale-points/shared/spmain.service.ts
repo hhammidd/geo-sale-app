@@ -22,8 +22,10 @@ export class SpmainService {
 
   constructor(private http: HttpClient) {
     // this.usersUrl = 'http://94.130.228.242:31430/';
-    this.usersUrl = 'http://localhost:8085/';
-    this.geoUrl = 'http://localhost:8092/';
+    // this.usersUrl = 'http://localhost:8085/'; // local
+    this.usersUrl = 'http://94.130.228.242:30183/'; // local
+    // this.geoUrl = 'http://localhost:8092/'; // local
+    this.geoUrl = 'http://94.130.228.242:32737/';
   }
 
   getRegions() {
