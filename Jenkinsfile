@@ -23,8 +23,9 @@ pipeline {
             }
           } else {
             stage('build image') {
-              sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
-              buildangularapp("${service_name}", "${sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"}")
+              def lastVersion = sh(script: 'docker images geo-sale-app  --format=\'{{.Tag}}\' | head -1', returnStdout: true)
+              //sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
+              buildangularapp("${service_name}", "${lastVersion}")
             }
           }
         }
