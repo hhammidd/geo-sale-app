@@ -14,7 +14,7 @@ pipeline {
   stages {
     stage("git checkout") {
       steps {
-        git 'https://github.com/hhammidd/${service_name}.git'
+        git 'https://github.com/hhammidd/geo-sale-app.git'
       }
     }
   }
