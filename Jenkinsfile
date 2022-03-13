@@ -3,7 +3,6 @@ properties([
   parameters([
     string(name: 'service_name', defaultValue: 'geo-sale-app', description: 'Service-name',),
     string(name: 'IMAGE_TAG', defaultValue: '', description: 'Image TAG, if it is empty version should be something for now',),
-    string(name: 'version', defaultValue: '3', description: 'new version TODO, should be automated',),
     string(name: 'branch', defaultValue: 'master', description: 'Which is the branch triggered',),
     string(name: 'environment', defaultValue: 'default', description: 'Which cluster you need to deploy, default/bricks-tst/bricks-acc/bricks-prd',),
   ])
@@ -14,6 +13,10 @@ pipeline {
   agent any
   stages {
 
+    def lastVersion = sh(script: 'docker images geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
+    def lastVersionInteger =  "${lastVersion}" as Integer
+    def newVersion = lastVersionInteger + 1
+
     stage("get version, checkout  and build") {
       steps {
         script {
@@ -23,11 +26,8 @@ pipeline {
             }
           } else {
             stage('build image') {
-              def lastVersion = sh(script: 'docker images geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
-              def newVersion =  "${lastVersion}" as Integer
-              def bla = newVersion + 1
               //sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
-              buildangularapp("${service_name}", "${bla}")
+              buildangularapp("${service_name}", "${newVersion}")
             }
           }
         }
@@ -43,7 +43,7 @@ pipeline {
             }
           } else {
             stage('deploy new version') {
-              createangularhelm("${service_name}", "${version}", "${environment}")
+              createangularhelm("${service_name}", "${newVersion}", "${environment}")
             }
           }
         }
