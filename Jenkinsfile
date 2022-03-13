@@ -30,9 +30,9 @@ pipeline {
           } else {
             stage('build image') {
 //              steps {
-//                buildangularapp("${service_name}")
-              git 'https://github.com/hhammidd/${service_name}.git'
-              sh "docker build -t ${service_name}:3 ."
+                buildangularapp("${service_name}")
+//              git 'https://github.com/hhammidd/${service_name}.git'
+//              sh "docker build -t ${service_name}:3 ."
 //              }
             }
 
