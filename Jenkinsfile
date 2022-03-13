@@ -53,6 +53,11 @@ pipeline {
         }
       }
     }
+    stage("clean none images") {
+      steps {
+        removeNoneImages()
+      }
+    }
 
 //    stage("deploy") {
 //
