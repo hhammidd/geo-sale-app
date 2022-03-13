@@ -20,36 +20,42 @@ pipeline {
 //  }
   agent any
   stages {
-//        stage("get version") {
-//            steps {
-//                script {
-//                    if ("${IMAGE_TAG}"?.trim()) {
-//                        stage('Input pam') {
-//                            sh 'echo ${IMAGE_TAG}'
-//                        }
-//                    } else {
-//                        stage('current') {
-//                            sh 'echo ${VERSION}'
-//                        }
-//                    }
-//                }
-//            }
-//        }
-    stage("checkout code") {
-      steps {
-        buildangularapp("${service_name}")
-      }
-    }
+        stage("get version") {
+            steps {
+                script {
+                    if ("${IMAGE_TAG}"?.trim()) {
+                        stage('No need to checkout,') {
+                            sh 'echo ${IMAGE_TAG}, image maybe already exist'
+                        }
+                    } else {
+                        stage('checkout code') {
+                          steps {
+                            buildangularapp("${service_name}")
+                          }
+                        }
 
-    stage("start build and push image") {
-      steps {
-        buildangularimage("2")
-      }
-    }
+                      stage("start build and push image") {
+                        steps {
+                          buildangularimage("2")
+                        }
+                      }
+
+                    }
+                }
+            }
+        }
+
+//    stage("checkout code") {
+//      steps {
+//        buildangularapp("${service_name}")
+//      }
+//    }
+
+
 
     stage("deploy") {
       steps {
-        createangularhelm("${service_name}")
+        createangularhelm("${service_name}", "${IMAGE_TAG}", "${environment}")
       }
     }
 
