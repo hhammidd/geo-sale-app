@@ -14,7 +14,7 @@ pipeline {
   stages {
     stage("git checkout") {
       steps {
-        git 'https://github.com/hhammidd/geo-sale-app.git'
+        sh "echo hellow"
       }
     }
   }
