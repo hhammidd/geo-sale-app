@@ -32,7 +32,7 @@ pipeline {
 //              steps {
 //                buildangularapp("${service_name}")
               git 'https://github.com/hhammidd/${service_name}.git'
-              sh "docker build -t ${servicename}:3 ."
+              sh "docker build -t ${service_name}:3 ."
 //              }
             }
 
