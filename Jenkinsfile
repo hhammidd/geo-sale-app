@@ -2,7 +2,8 @@
 properties([
   parameters([
     string(name: 'service_name', defaultValue: 'geo-sale-app', description: 'Service-name',),
-    string(name: 'IMAGE_TAG', defaultValue: '', description: 'Image TAG',),
+    string(name: 'IMAGE_TAG', defaultValue: '', description: 'Image TAG, if it is empty version should be something for now',),
+    string(name: 'version', defaultValue: '3', description: 'new version TODO, should be automated',),
     string(name: 'branch', defaultValue: 'master', description: 'Which is the branch triggered',),
     string(name: 'environment', defaultValue: 'default', description: 'Which cluster you need to deploy, default/bricks-tst/bricks-acc/bricks-prd',),
   ])
@@ -30,7 +31,7 @@ pipeline {
           } else {
             stage('build image') {
 //              steps {
-                buildangularapp("${service_name}")
+                buildangularapp("${service_name}", "${version}")
 //              git 'https://github.com/hhammidd/${service_name}.git'
 //              sh "docker build -t ${service_name}:3 ."
 //              }
@@ -56,7 +57,7 @@ pipeline {
 
     stage("deploy") {
       steps {
-        createangularhelm("${service_name}", "3", "${environment}")
+        createangularhelm("${service_name}", "${version}", "${environment}")
       }
     }
 
