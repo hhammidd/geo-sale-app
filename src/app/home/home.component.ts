@@ -4,6 +4,7 @@ import {DashboardService} from "../dashboard/shared/dashboard.service";
 import {PieChartTo} from "../sale-points/model/PieChartTo";
 import {Chart1} from "../dashboard/shared/model/Chart1";
 import * as Highcharts from 'highcharts';
+import {environment} from "../../environments/environment";
 //import * as Highcharts from 'highcharts';
 // import * as Highcharts from 'highcharts/highstock'
 
@@ -13,6 +14,9 @@ import * as Highcharts from 'highcharts';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  title = 'Demo application for version numbering';
+  currentApplicationVersion = environment.appVersion;
 
   constructor(private dashboardService: DashboardService) {
     Chart.register(...registerables)
