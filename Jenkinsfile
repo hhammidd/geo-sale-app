@@ -49,7 +49,7 @@ pipeline {
           } else {
             stage('deploy new version') {
               def lastVersion = sh(script: 'docker images hhssaaffii/geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
-              if ("${lastVersion}"?.trim()) {
+              if (lastVersion) {
                 def lastVersionInteger =  "${lastVersion}" as Integer
               } else  {
                 def lastVersionInteger =  1
