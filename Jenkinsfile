@@ -44,7 +44,7 @@ pipeline {
         script {
           if ("${IMAGE_TAG}"?.trim()) {
             stage('deploy wanted image') {
-              createangularhelm("${service_name}", "${IMAGE_TAG}", "${environment}")
+              createExistedImagehelm("${service_name}", "${IMAGE_TAG}", "${environment}")
             }
           } else {
             stage('deploy new version') {
