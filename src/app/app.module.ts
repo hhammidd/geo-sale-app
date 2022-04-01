@@ -33,6 +33,11 @@ import {CardComponent} from "./dashboard/shared/widgets/card/card.component";
 import { PieComponent } from './dashboard/shared/widgets/pie/pie.component';
 import {DashboardService} from "./dashboard/shared/dashboard.service";
 import { Chart1Component } from './dashboard/shared/widgets/chart1/chart1.component';
+import { HouseinfoComponent } from './houseinfo/houseinfo/houseinfo.component';
+import {MatTabsModule} from "@angular/material/tabs";
+import { Tab2Component } from './houseinfo/houseinfo/tab2/tab2.component';
+import { Tab3Component } from './houseinfo/houseinfo/tab3/tab3.component';
+import {Tab1Component} from "./houseinfo/houseinfo/tab1/tab1.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +53,10 @@ import { Chart1Component } from './dashboard/shared/widgets/chart1/chart1.compon
     CardComponent,
     PieComponent,
     Chart1Component,
+    HouseinfoComponent,
+    Tab1Component,
+    Tab2Component,
+    Tab3Component,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +78,8 @@ import { Chart1Component } from './dashboard/shared/widgets/chart1/chart1.compon
     MatCardModule,
     MatMenuModule,
     HighchartsChartModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatTabsModule
   ],
   providers: [SpmainService, SalepointOlService, DashboardService,
   ],

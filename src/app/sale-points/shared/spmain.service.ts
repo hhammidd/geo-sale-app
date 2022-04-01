@@ -21,11 +21,11 @@ export class SpmainService {
 
 
   constructor(private http: HttpClient) {
-    // this.usersUrl = 'http://94.130.228.242:31430/';
+    // this.usersUrl = 'http://192.168.58.2:31430/';
     // this.usersUrl = 'http://localhost:8085/'; // local
-    this.usersUrl = 'http://94.130.228.242:30183/'; // local
-    // this.geoUrl = 'http://localhost:8092/'; // local
-    this.geoUrl = 'http://94.130.228.242:32737/';
+    this.usersUrl = 'http://192.168.58.2:30183'; // local
+    // this.geoUrl = 'http://localhost:8092'; // local
+    this.geoUrl = 'http://192.168.58.2:32737'; // minikube ip
   }
 
   getRegions() {

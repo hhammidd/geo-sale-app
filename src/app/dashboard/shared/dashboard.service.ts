@@ -19,8 +19,8 @@ export class DashboardService {
   constructor(private http: HttpClient) {
     // this.url = 'http://localhost:8089/'; //local
     // this.geoUrl = 'http://localhost:8092/'; // local
-    this.url = 'http://94.130.228.242:30183/';
-    this.geoUrl = 'http://94.130.228.242:32737/';
+    this.url = 'http://192.168.58.2:30183/';
+    this.geoUrl = 'http://192.168.58.2:32737/';
     this.dummyUrl = 'http://localhost:3000/';
     this.dummyUrl1 = 'http://localhost:3001/';
   }

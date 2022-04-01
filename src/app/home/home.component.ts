@@ -22,8 +22,6 @@ export class HomeComponent implements OnInit {
     Chart.register(...registerables)
   }
 
-  barChartCountryData: any = []
-
   result: any;
   resultBar: any;
   chart: any = [];
@@ -31,7 +29,6 @@ export class HomeComponent implements OnInit {
   names: any;
   ys: any;
   dataBar: any;
-  nameBar: any;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,

@@ -3,8 +3,6 @@ import {DashboardService} from "./shared/dashboard.service";
 import {RegionsDto} from "../sale-points/model/RegionsDto";
 import {EvInfoTo} from "../sale-points/model/EvInfoTo";
 import {PieChartTo} from "../sale-points/model/PieChartTo";
-import {map} from "rxjs/operators";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +14,6 @@ export class DashboardComponent implements OnInit {
   bigChart: any = [];
   cards: number[] = [];
   pieChart: any[] = [];
-  // pieChart: any[] = []
   regions: RegionsDto[] = [];
 
   constructor(private dashboardService: DashboardService) {
