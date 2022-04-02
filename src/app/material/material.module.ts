@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import * as Material from '@angular/material';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatTreeModule} from "@angular/material/tree";
 import {MatTableModule} from "@angular/material/table";
@@ -64,4 +63,5 @@ import {MatDividerModule} from "@angular/material/divider";
   ],
   declarations: []
 })
-export class MaterialModule { }
+export class MaterialModule {
+}

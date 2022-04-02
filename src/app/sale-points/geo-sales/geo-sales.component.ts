@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {SpmainService} from "../shared/spmain.service";
 import {FormGroup} from "@angular/forms";
-import {SalePointsInfoTo} from "../model/SalePointsInfoTo";
 import {SalePointTo} from "../model/SalePointTo";
 
 import {MatPaginator} from "@angular/material/paginator";

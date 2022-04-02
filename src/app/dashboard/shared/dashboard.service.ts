@@ -2,9 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
 import {throwError} from "rxjs";
-import { map } from "rxjs/operators"
-import {PieChartTo} from "../../sale-points/model/PieChartTo";
-import {Chart1} from "./model/Chart1";
+import {map} from "rxjs/operators"
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +18,7 @@ export class DashboardService {
     // this.url = 'http://localhost:8089/'; //local
     // this.geoUrl = 'http://localhost:8092/'; // local
     this.url = 'http://94.130.228.242:30183/';
-    // this.url = 'http://192.168.58.2:8089/';
-    // this.url = 'http://10.104.235.224:8089/';
     this.geoUrl = 'http://94.130.228.242:32737/';
-    // this.geoUrl = 'http://192.168.58.2:8092/';
-    // this.geoUrl = 'http://10.109.168.76:8092/';
     this.dummyUrl = 'http://localhost:3000/';
     this.dummyUrl1 = 'http://localhost:3001/';
   }
@@ -49,7 +43,6 @@ export class DashboardService {
   }
 
   evInfos: EvInfoTo[] = [];
-  // pieChart: any[] = [{name: 'ss', y: 10}, {name: 'bb', y: 10}, {name: 'bb', y: 80}];
   pieChart: any[] = [];
 
   cards() {
@@ -63,13 +56,17 @@ export class DashboardService {
   getDummyw() {
     // return this.http.get("https://samples.openweathermap.org/data/2.5/history/city?q=Warren,OH&appid=b6907d289e10d714a6e88b30761fae22")
     return this.http.get(this.dummyUrl1 + 'chartValues')
-      .toPromise().then((data) => { return data})
+      .toPromise().then((data) => {
+        return data
+      })
   }
 
   getCountryBarCharts() {
 
     return this.http.get(this.dummyUrl + 'barValues')
-      .toPromise().then((data) => { return data})
+      .toPromise().then((data) => {
+        return data
+      })
   }
 
   errorHandler(error: HttpErrorResponse) {
@@ -86,15 +83,8 @@ export class DashboardService {
       });
   }
 
-  // pieChart() {
-  //   return this.http.get<EvInfoTo[]>(this.url + '/ev-infos');
-  // }
   getPiChart() {
     return this.http.get<EvInfoTo[]>(this.url + '/ev-infos')
-
-    // return this.http.get<EvInfoTo[]>(this.url + '/ev-infos');
-
-    // return []
   }
 
 }

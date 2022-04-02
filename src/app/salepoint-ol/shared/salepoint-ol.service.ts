@@ -13,14 +13,10 @@ export class SalepointOlService {
   private geoUrl: string;
 
   constructor(private http: HttpClient) {
-    // this.usersUrl = 'http://localhost:8089/'; // local
+    // this.usersUrl = 'http://localhost:8088/'; // local
     this.usersUrl = 'http://94.130.228.242:30183/'; // local
-    // this.usersUrl = 'http://192.168.58.2:8089/'; // local
-    // this.usersUrl = 'http://10.104.235.224:8089/'; // local
     // this.geoUrl = 'http://localhost:8092/'; // local
     this.geoUrl = 'http://94.130.228.242:32737/';
-    // this.geoUrl = 'http://192.168.58.2:8092/';
-    // this.geoUrl = 'http://10.109.168.76:8092/';
   }
 
   geosTo: GeosTo;
@@ -32,7 +28,6 @@ export class SalepointOlService {
       .subscribe( data => {
         console.log('data from backend: ' , data);
         this.salePointTos = data.salePointTos as SalePointTo[];
-        // console.log('data after map: ', this.salePointTos);
       });
     console.log('final object in service: ', this.geosTo);
   }

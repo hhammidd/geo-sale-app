@@ -25,7 +25,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.bigChart = this.dashboardService.bigChart();
-    // this.dashboardService.getEvInfos().subscribe(res => this.evInfos = res);
     this.cards = this.dashboardService.cards();
     this.dashboardService.getDummy()
       .subscribe(res => {
@@ -35,15 +34,5 @@ export class DashboardComponent implements OnInit {
     console.log("ssswswswssd ", this.evInfos)
     console.log("sssd ", this.pieChart)
   }
-
-  // private getPiChart(): Subscription {
-  //    return this.dashboardService.pieChart()
-  //      .pipe(
-  //     map(res => res.map(item => ({name: item.country, y: item.amount})))
-  //   )
-  //      .subscribe(res => {
-  //     this.pieChart = res as PieChartTo[];
-  //     console.log("sssd ", this.pieChart)
-  //   });
 
 }
