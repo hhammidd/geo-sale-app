@@ -14,7 +14,7 @@ import {CountriesBarTo} from "../sale-points/model/CountriesBarTo";
 })
 export class HomeComponent implements OnInit {
 
-  title = 'Demo application for version numbering';
+  title = '';
   currentApplicationVersion = environment.appVersion;
 
   constructor(private dashboardService: DashboardService) {
@@ -25,6 +25,8 @@ export class HomeComponent implements OnInit {
   resultBar: any;
   chart: any = [];
   chart2: any = [];
+  chartForBlaNL: any = [];
+  chartForBlaIT: any = [];
   names: any;
   ys: any;
   dataBar: any;
@@ -149,6 +151,36 @@ export class HomeComponent implements OnInit {
         }
       })
 
+      this.chartForBlaNL = new Chart('canvasChartForBlaNL', {
+        type: 'line',
+        data: {
+          labels: this.names,
+          datasets: [{
+            label: 'NL',
+            data: this.ys,
+            borderWidth: 1,
+            fill: false,
+            backgroundColor: 'rgba(93, 175, 89,0.1 )',
+            borderColor: '#3e95cd',
+          }]
+        }
+      })
+
+      this.chartForBlaIT = new Chart('canvasChartForBlaIT', {
+        type: 'line',
+        data: {
+          labels: this.names,
+          datasets: [{
+            label: 'IT',
+            data: this.ys, // a method get the data for IT
+            borderWidth: 1,
+            fill: false,
+            backgroundColor: 'rgba(93, 175, 89,0.1 )',
+            borderColor: '#3e95cd',
+          }]
+        }
+      })
+
       this.chart2 = new Chart('canvas3', {
         type: 'line',
         data: {
@@ -182,6 +214,11 @@ export class HomeComponent implements OnInit {
     })
   }
 
+  // TODO
+  private getInfoForCountry(): void {
+    //get countries data
+  }
+
   private createChartColumn(): void {
       let date = new Date();
       const data: any[] = [];
@@ -195,6 +232,45 @@ export class HomeComponent implements OnInit {
     }
 
     const chart = Highcharts.chart('chart-column' as any, {
+      chart: {
+        type: 'column',
+      },
+      title: {
+        text: 'Column Chart',
+      },
+      credits: {
+        enabled: false,
+      },
+      legend: {
+        enabled: false,
+      },
+      yAxis: {
+        min: 0,
+        title: undefined,
+      },
+      xAxis: {
+        type: 'category',
+      },
+      tooltip: {
+        headerFormat: `<div>Date: {point.key}</div>`,
+        pointFormat: `<div>{series.name}: {point.y}</div>`,
+        shared: true,
+        useHTML: true,
+      },
+      plotOptions: {
+        bar: {
+          dataLabels: {
+            enabled: true,
+          },
+        },
+      },
+      series: [{
+        name: 'Amount',
+        data,
+      }],
+    } as any);
+
+    const chart1 = Highcharts.chart('chart-column1' as any, {
       chart: {
         type: 'column',
       },
