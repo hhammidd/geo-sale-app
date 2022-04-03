@@ -4,6 +4,7 @@ import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
 import {throwError} from "rxjs";
 import {map} from "rxjs/operators"
 import {CountriesBarTo} from "../../sale-points/model/CountriesBarTo";
+import {YearChartValues} from "../../sale-points/model/YearChartValues";
 
 @Injectable({
   providedIn: 'root'
@@ -12,16 +13,13 @@ export class DashboardService {
 
   private url: string;
   private geoUrl: string;
-  private dummyUrl: string;
-  private dummyUrl1: string;
 
   constructor(private http: HttpClient) {
     // this.url = 'http://localhost:8089/'; //local
     // this.geoUrl = 'http://localhost:8092/'; // local
     this.url = 'http://94.130.228.242:30183/';
     this.geoUrl = 'http://94.130.228.242:32737/';
-    this.dummyUrl = 'http://localhost:8088/';
-    this.dummyUrl1 = 'http://localhost:3001/';
+    // this.url = 'http://localhost:8088/';
   }
 
   bigChart() {
@@ -51,20 +49,20 @@ export class DashboardService {
   }
 
   getDummy() {
-    return this.http.get(this.dummyUrl + 'sale-point-geo/countries-map');
+    return this.http.get(this.url + 'sale-point-geo/countries-map');
   }
 
   getDummyw() {
     // return this.http.get("https://samples.openweathermap.org/data/2.5/history/city?q=Warren,OH&appid=b6907d289e10d714a6e88b30761fae22")
-    return this.http.get(this.dummyUrl1 + 'chartValues')
+    return this.http.get(this.url + '/sale-point-geo/countries-map/2022') // change the year to variable
       .toPromise().then((data) => {
-        return data
+        return data as YearChartValues
       })
   }
 
   getCountryBarCharts() {
     console.log("jjj")
-    return this.http.get(this.dummyUrl + 'sale-point-geo/countries-map').toPromise()
+    return this.http.get(this.url + 'sale-point-geo/countries-map').toPromise()
       .then((data) => {
         console.log("hello", data)
         return data as CountriesBarTo

@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
 
 
     this.dashboardService.getDummyw().then((res) => {
-      this.result = res;
+      this.result = res.chartValues;
       console.log(this.result)
 
       this.names = this.result.map (res =>
