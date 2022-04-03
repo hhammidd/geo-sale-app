@@ -3,6 +3,7 @@ import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
 import {throwError} from "rxjs";
 import {map} from "rxjs/operators"
+import {CountriesBarTo} from "../../sale-points/model/CountriesBarTo";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class DashboardService {
     // this.geoUrl = 'http://localhost:8092/'; // local
     this.url = 'http://94.130.228.242:30183/';
     this.geoUrl = 'http://94.130.228.242:32737/';
-    this.dummyUrl = 'http://localhost:3000/';
+    this.dummyUrl = 'http://localhost:8088/';
     this.dummyUrl1 = 'http://localhost:3001/';
   }
 
@@ -50,7 +51,7 @@ export class DashboardService {
   }
 
   getDummy() {
-    return this.http.get(this.dummyUrl + 'chartValues');
+    return this.http.get(this.dummyUrl + 'sale-point-geo/countries-map');
   }
 
   getDummyw() {
@@ -62,10 +63,11 @@ export class DashboardService {
   }
 
   getCountryBarCharts() {
-
-    return this.http.get(this.dummyUrl + 'barValues')
-      .toPromise().then((data) => {
-        return data
+    console.log("jjj")
+    return this.http.get(this.dummyUrl + 'sale-point-geo/countries-map').toPromise()
+      .then((data) => {
+        console.log("hello", data)
+        return data as CountriesBarTo
       })
   }
 

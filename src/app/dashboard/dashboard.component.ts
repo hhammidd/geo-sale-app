@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit {
     this.cards = this.dashboardService.cards();
     this.dashboardService.getDummy()
       .subscribe(res => {
+        console.log("hello", res)
         this.pieChart = res as PieChartTo[];
       });
     console.log("sqwssqwsqwswqsswswssd ", this.bigChart)

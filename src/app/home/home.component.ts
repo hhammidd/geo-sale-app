@@ -5,8 +5,7 @@ import {PieChartTo} from "../sale-points/model/PieChartTo";
 import {Chart1} from "../dashboard/shared/model/Chart1";
 import * as Highcharts from 'highcharts';
 import {environment} from "../../environments/environment";
-//import * as Highcharts from 'highcharts';
-// import * as Highcharts from 'highcharts/highstock'
+import {CountriesBarTo} from "../sale-points/model/CountriesBarTo";
 
 @Component({
   selector: 'app-home',
@@ -49,17 +48,12 @@ export class HomeComponent implements OnInit {
   public barChartLegend: boolean = true;
 
   Highcharts = Highcharts;
-
-  public barChartData: any[] = [
-    { data: [], label: 'Volume Sales' },
-    { data: [], label: 'Value Sales' }
-  ];
   chartOptions: {};
 
   ngOnInit(): void {
     this.createChartColumn();
     this.dashboardService.getCountryBarCharts().then( res2 => {
-      this.resultBar = res2;
+      this.resultBar = res2.barValues;
       console.log("nn", this.resultBar);
 
       this.chartOptions =
@@ -68,7 +62,7 @@ export class HomeComponent implements OnInit {
             type: 'column'
           },
           title: {
-            text: 'Monthly Average Rainfall'
+            text: 'Monthly Average EV basket size'
           },
           subtitle: {
             text: 'Source: WorldClimate.com'
