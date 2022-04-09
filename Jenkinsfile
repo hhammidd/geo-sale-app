@@ -28,9 +28,10 @@ pipeline {
             }
           } else {
             stage('build image') {
-              def lastVersion = sh(script: 'docker images hhssaaffii/geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
-              def lastVersionInteger = "${lastVersion}" as Integer
-              newVersion = lastVersionInteger + 1
+//              def lastVersion = sh(script: 'docker images hhssaaffii/geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
+//              def lastVersionInteger = "${lastVersion}" as Integer
+//              newVersion = lastVersionInteger + 1
+              newVersion = "0.0.0"
               //sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
 //              buildangularapp("${service_name}", "${newVersion}")
             }
