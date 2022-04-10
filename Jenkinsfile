@@ -31,7 +31,7 @@ pipeline {
 //              def lastVersion = sh(script: 'docker images hhssaaffii/geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
 //              def lastVersionInteger = "${lastVersion}" as Integer
 //              newVersion = lastVersionInteger + 1
-              newVersion = "0.0.0"
+//              newVersion = "0.0.0"
               //sh "docker images geo-sale-app  --format='{{.Tag}}' | head -1"
 //              buildangularapp("${service_name}", "${newVersion}")
             }
@@ -45,7 +45,7 @@ pipeline {
         script {
           if ("${IMAGE_TAG}"?.trim()) {
             stage('deploy wanted image') {
-              createExistedImagehelm("${service_name}", "${IMAGE_TAG}", "${environment}")
+//              createExistedImagehelm("${service_name}", "${IMAGE_TAG}", "${environment}")
             }
           } else {
             stage('deploy new version') {
