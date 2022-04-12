@@ -36,7 +36,7 @@ pipeline {
 
     stage("Angular audit check") {
       steps {
-        checkAngularAudit()
+        checkangularaudit()
       }
     }
 
