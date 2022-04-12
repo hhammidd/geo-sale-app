@@ -10,12 +10,7 @@ properties([
 
 def newVersion
 pipeline {
-  environment {
-    registry = "hhssaaffii/${service_name}"
-    registryCredential = ''
-    dockerImage = ''
-    //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
-  }
+
   agent any
   stages {
 
@@ -39,6 +34,12 @@ pipeline {
       }
     }
 
+    stage("Angular audit check") {
+      steps {
+        checkAngularAudit()
+      }
+    }
+
     stage("deploy") {
       steps {
         script {
@@ -58,12 +59,6 @@ pipeline {
         }
       }
     }
-
-//    stage("clean none images") { // TODO add  later
-//      steps {
-//        removeNoneImages()
-//      }
-//    }
 
   }
 }
