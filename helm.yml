@@ -10,7 +10,7 @@ ImageName: hhssaaffii/geo-sale-app
 
 appName: geo-sale-app
 
-host: hello-world-7.pvt
+host: evbricks.com
 
 artifactory:
   name: artifactory
