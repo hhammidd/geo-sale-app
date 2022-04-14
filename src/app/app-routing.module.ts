@@ -14,6 +14,7 @@ const routes: Routes = [
   {path: 'salepointol', component: SalepointOlComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'houseinfo', component: HouseinfoComponent},
+  {path: '', redirectTo: '/home', pathMatch: 'full'}
   // {path: 'salepointdashboardmap', component: SalepointdashboardmapComponent},
   // {path: '404', component: NotFoundComponent},
   // {path: '**', redirectTo: '/404'}
