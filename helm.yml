@@ -11,7 +11,7 @@ ImageName: hhssaaffii/geo-sale-app
 appName: geo-sale-app
 
 host: evbricks.com
-path: ~
+path: ev
 artifactory:
   name: artifactory
 
