@@ -13,8 +13,8 @@ COPY ./ /usr/local/app/
 RUN npm install
 
 # Generate the build of the application
-#RUN npm run build # TODO normal worked
-RUN npm run build --base-href=/bla/ # remove if not worked
+RUN npm run build # TODO normal worked
+#RUN npm run build --base-href=/bla/ # remove if not worked
 
 # Stage 2: Serve app with nginx server
 
@@ -26,3 +26,4 @@ COPY --from=build /usr/local/app/dist/geo-sale-app /usr/share/nginx/html
 
 # Expose port 80
 EXPOSE 80
+
