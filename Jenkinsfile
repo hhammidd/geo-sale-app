@@ -36,7 +36,16 @@ pipeline {
 
     stage("Angular audit check") {
       steps {
-        checkangularaudit("${service_name}")
+        script {
+          if ("${IMAGE_TAG}"?.trim()) {
+            stage('No need to audit') {
+              sh 'echo ${IMAGE_TAG}, image maybe already exist'
+            }
+          } else {
+            checkangularaudit("${service_name}")
+          }
+        }
+
       }
     }
 
@@ -44,21 +53,17 @@ pipeline {
       steps {
         script {
           if ("${IMAGE_TAG}"?.trim()) {
-            stage('deploy wanted image') {
+            stage('deploy existed image') {
               createExistedImagehelm("${service_name}", "${IMAGE_TAG}", "${environment}")
             }
           } else {
             stage('deploy new version') {
-//              def lastVersion = sh(script: 'docker images hhssaaffii/geo-sale-app --format=\'{{.Tag}}\' | head -1', returnStdout: true)
-//              def lastVersionInteger =  "${lastVersion}" as Integer
-//              newVersion = lastVersionInteger + 1
-              newVersion = 1
+              newVersion = 1 // TODO remove it later
               createangularhelm("${service_name}", "${newVersion}", "${environment}")
             }
           }
         }
       }
     }
-
   }
 }
