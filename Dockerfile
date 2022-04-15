@@ -25,4 +25,4 @@ FROM nginx:latest
 COPY --from=build /usr/local/app/dist/geo-sale-app /usr/share/nginx/html
 
 # Expose port 80
-EXPOSE 80 // TODO later use this exposeImagePort
+EXPOSE 80
