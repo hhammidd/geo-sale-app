@@ -13,8 +13,8 @@ COPY ./ /usr/local/app/
 RUN npm install
 
 # Generate the build of the application
-RUN npm run build
-
+#RUN npm run build # TODO normal worked
+RUN npm run build --base-href=/home/ # remove if not worked
 
 # Stage 2: Serve app with nginx server
 
