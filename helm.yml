@@ -2,6 +2,7 @@ replicaCount: 1
 #tag: 1
 #namespace: default
 service:
+  servicePort: 80
   type: NodePort
   name: geo-sale-app-svc
   nodePort: 31003
@@ -9,7 +10,7 @@ service:
 ImageName: hhssaaffii/geo-sale-app
 
 appName: geo-sale-app
-exposeImagePort: 8080
+exposeImagePort: 4201
 
 host: evbricks.com
 path:
