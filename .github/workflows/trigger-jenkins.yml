@@ -34,6 +34,7 @@ jobs:
           job_params: |
             {
               "service_name": "geo-sale-app",
-              "IMAGE_TAG": "0.0.23"
+              "branch": "master",
+              "environment": "default"
             }
           job_timeout: "3600" # Default 30 sec. (optional)
