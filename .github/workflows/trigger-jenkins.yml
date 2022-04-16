@@ -29,11 +29,11 @@ jobs:
           jenkins_url: "http://94.130.228.242:8080/"
           jenkins_user: ${{ secrets.JENKINS_USER }}
           jenkins_token: ${{ secrets.JENKINS_TOKEN }}
-          proxy: ${{ secrets.JENKINS_PROXY }}
-          job_name: "the-name-of-your-jenkins-job"
+#           proxy: ${{ secrets.JENKINS_PROXY }}
+          job_name: "angular-pipline-template"
           job_params: |
             {
-              "param_1": "value_1",
-              "param_2": "value_2"
+              "service_name": "geo-sale-app",
+              "IMAGE_TAG": "0.0.23"
             }
           job_timeout: "3600" # Default 30 sec. (optional)
