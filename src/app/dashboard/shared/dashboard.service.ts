@@ -53,7 +53,6 @@ export class DashboardService {
   }
 
   getDummyw() {
-    // return this.http.get("https://samples.openweathermap.org/data/2.5/history/city?q=Warren,OH&appid=b6907d289e10d714a6e88b30761fae22")
     return this.http.get(this.url + 'sale-point-geo/countries-map/2022') // change the year to variable
       .toPromise().then((data) => {
         return data as YearChartValues

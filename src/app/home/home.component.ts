@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import { Chart, registerables } from 'chart.js';
+import {Chart, registerables} from 'chart.js';
 import {DashboardService} from "../dashboard/shared/dashboard.service";
-import {PieChartTo} from "../sale-points/model/PieChartTo";
-import {Chart1} from "../dashboard/shared/model/Chart1";
 import * as Highcharts from 'highcharts';
 import {environment} from "../../environments/environment";
-import {CountriesBarTo} from "../sale-points/model/CountriesBarTo";
+
+interface Year {
+  value: number;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,14 @@ import {CountriesBarTo} from "../sale-points/model/CountriesBarTo";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+  years: Year[] = [
+    {value: 2019, viewValue: '2019'},
+    {value: 2020, viewValue: '2020'},
+    {value: 2021, viewValue: '2021'},
+    {value: 2022, viewValue: '2022'},
+  ];
+  selected = (new Date()).getFullYear();
 
   title = '';
   currentApplicationVersion = environment.appVersion;
@@ -30,6 +40,35 @@ export class HomeComponent implements OnInit {
   names: any;
   ys: any;
   dataBar: any;
+  currentMonthBackgroundColors: any = [
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+    'rgba(255, 159, 64, 0.2)',
+  ];
+
+  boarderColors: any = [
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 159, 64)',
+  ]
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -54,7 +93,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.createChartColumn();
-    this.dashboardService.getCountryBarCharts().then( res2 => {
+    this.dashboardService.getCountryBarCharts().then(res2 => {
       this.resultBar = res2.barValues;
       console.log("nn", this.resultBar);
 
@@ -108,30 +147,49 @@ export class HomeComponent implements OnInit {
           },
           series: this.resultBar
         }
-      })
+    })
 
 
     this.dashboardService.getDummyw().then((res) => {
       this.result = res.chartValues;
       console.log(this.result)
 
-      this.names = this.result.map (res =>
+      this.names = this.result.map(res =>
         res.name as string)
 
-      this.ys = this.result.map (res =>
+      this.ys = this.result.map(res =>
         res.y as number)
+
+      /**
+       * Get the current month and put a random 200 for hight to distinguish current month
+       */
+      function getCurrentMonthData(): number[] {
+        const date = new Date();
+        var array: number[] = [];
+        for(var i=0; i<12; ++i) { i === date.getMonth() ? array.push(200) : array.push(0)}
+        return array as number[];
+      }
 
       this.chart = new Chart('canvas', {
         type: 'line',
         data: {
           labels: this.names,
           datasets: [{
-            label: 'BE',
+            label: 'BE EV number',
             data: this.ys,
             borderWidth: 1,
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
+            order: 1
+          }, {
+            label: 'current month',
+            data: getCurrentMonthData(),
+            type: 'bar',
+            order: 2,
+            backgroundColor: this.currentMonthBackgroundColors,
+            borderColor: this.boarderColors,
+            borderWidth: 1
           }]
         }
       })
@@ -220,8 +278,8 @@ export class HomeComponent implements OnInit {
   }
 
   private createChartColumn(): void {
-      let date = new Date();
-      const data: any[] = [];
+    let date = new Date();
+    const data: any[] = [];
 
     for (let i = 0; i < 10; i++) {
       date.setDate(new Date().getDate() + i);
