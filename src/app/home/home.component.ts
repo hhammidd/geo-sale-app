@@ -39,6 +39,9 @@ export class HomeComponent implements OnInit {
   chartForBlaIT: any = [];
   names: any;
   ys: any;
+  predictLevel1Mock: number[] = [0, 0, 0, 0, 100, 88, 155, 112 , 99, 150, 160, 170]
+  predictLevel2Mock: number[] = [0, 0, 0, 0, 105, 99, 160, 122 , 100, 160, 170, 175]
+  predictLevel3Mock: number[] = [0, 0, 0, 0, 110, 110, 167, 120 , 110, 166, 169, 179]
   dataBar: any;
   currentMonthBackgroundColors: any = [
     'rgba(255, 159, 64, 0.2)',
@@ -175,14 +178,40 @@ export class HomeComponent implements OnInit {
         data: {
           labels: this.names,
           datasets: [{
-            label: 'BE EV number',
+            label: 'EV number',
             data: this.ys,
             borderWidth: 1,
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
             order: 1
-          }, {
+          },{
+            label: 'predict level 1',
+            data: this.predictLevel1Mock,
+            borderWidth: 1,
+            fill: false,
+            backgroundColor: 'rgba(93, 175, 89,0.1 )',
+            borderColor: '#873e23',
+            order: 2
+          },
+            {
+              label: 'predict level 2',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#063970',
+              order: 3
+            }, {
+              label: 'predict level 3',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#76b5c5',
+              order: 4
+            },
+            {
             label: 'current month',
             data: getCurrentMonthData(),
             type: 'bar',
@@ -205,7 +234,41 @@ export class HomeComponent implements OnInit {
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
-          }]
+          },{
+            label: 'predict level 1',
+            data: this.predictLevel1Mock,
+            borderWidth: 1,
+            fill: false,
+            backgroundColor: 'rgba(93, 175, 89,0.1 )',
+            borderColor: '#873e23',
+            order: 1
+          },
+            {
+              label: 'predict level 2',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#063970',
+              order: 3
+            }, {
+              label: 'predict level 3',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#76b5c5',
+              order: 4
+            },
+            {
+              label: 'current month',
+              data: getCurrentMonthData(),
+              type: 'bar',
+              order: 2,
+              backgroundColor: this.currentMonthBackgroundColors,
+              borderColor: this.boarderColors,
+              borderWidth: 1
+            }]
         }
       })
 
@@ -220,7 +283,42 @@ export class HomeComponent implements OnInit {
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
-          }]
+          },
+            {
+              label: 'current month',
+              data: getCurrentMonthData(),
+              type: 'bar',
+              order: 2,
+              backgroundColor: this.currentMonthBackgroundColors,
+              borderColor: this.boarderColors,
+              borderWidth: 1
+            },
+            {
+              label: 'predict level 1',
+              data: this.predictLevel1Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#873e23',
+              order: 1
+            },
+            {
+              label: 'predict level 2',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#063970',
+              order: 3
+            }, {
+              label: 'predict level 3',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#76b5c5',
+              order: 4
+            }]
         }
       })
 
@@ -235,7 +333,42 @@ export class HomeComponent implements OnInit {
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
-          }]
+          },
+            {
+              label: 'current month',
+              data: getCurrentMonthData(),
+              type: 'bar',
+              order: 2,
+              backgroundColor: this.currentMonthBackgroundColors,
+              borderColor: this.boarderColors,
+              borderWidth: 1
+            },
+            {
+              label: 'predict level 1',
+              data: this.predictLevel1Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#873e23',
+              order: 1
+            },
+            {
+              label: 'predict level 2',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#063970',
+              order: 3
+            }, {
+              label: 'predict level 3',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#76b5c5',
+              order: 4
+            }]
         }
       })
 
@@ -250,7 +383,33 @@ export class HomeComponent implements OnInit {
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
-          }]
+          },
+            {
+              label: 'predict level 1',
+              data: this.predictLevel1Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#873e23',
+              order: 1
+            },
+            {
+              label: 'predict level 2',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#063970',
+              order: 3
+            }, {
+              label: 'predict level 3',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#76b5c5',
+              order: 4
+            }]
         }
       })
 
@@ -265,16 +424,45 @@ export class HomeComponent implements OnInit {
             fill: false,
             backgroundColor: 'rgba(93, 175, 89,0.1 )',
             borderColor: '#3e95cd',
-          }]
+          },{
+            label: 'predict level 1',
+            data: this.predictLevel1Mock,
+            borderWidth: 1,
+            fill: false,
+            backgroundColor: 'rgba(93, 175, 89,0.1 )',
+            borderColor: '#873e23',
+            order: 1
+          },
+            {
+              label: 'current month',
+              data: getCurrentMonthData(),
+              type: 'bar',
+              order: 2,
+              backgroundColor: this.currentMonthBackgroundColors,
+              borderColor: this.boarderColors,
+              borderWidth: 1
+            },
+            {
+              label: 'predict level 2',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#063970',
+              order: 3
+            }, {
+              label: 'predict level 3',
+              data: this.predictLevel2Mock,
+              borderWidth: 1,
+              fill: false,
+              backgroundColor: 'rgba(93, 175, 89,0.1 )',
+              borderColor: '#76b5c5',
+              order: 4
+            }]
         }
       })
 
     })
-  }
-
-  // TODO
-  private getInfoForCountry(): void {
-    //get countries data
   }
 
   private createChartColumn(): void {
