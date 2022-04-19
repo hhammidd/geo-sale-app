@@ -575,8 +575,9 @@ export class HomeComponent implements OnInit {
   getCurrentMonthData(yearSelected: any): number[] {
     const date = new Date();
     var array: number[] = [];
-
-    if (yearSelected < date.getFullYear()) {
+    console.log('dddd', date.getFullYear())
+    console.log('ddd', yearSelected)
+    if (yearSelected == date.getFullYear()) {
       for(var i=0; i<12; ++i) { i === date.getMonth() ? array.push(200) : array.push(0)}
     } else {
       for(var i=0; i<12; ++i) { array.push(0)}
