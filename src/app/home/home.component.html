@@ -4,20 +4,20 @@
     <h3>EV info BELGIUM</h3>
     <mat-form-field appearance="fill">
       <mat-label>Year</mat-label>
-      <mat-select [(value)]="selected" class="yearFilter">
+      <mat-select [(value)]="selected" class="yearFilter" (selectionChange)="changeYearChart1($event.value)">
         <mat-option *ngFor="let year of years" [value]="year.value">
           {{year.viewValue}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <canvas id="canvas">{{chart}}</canvas>
+    <canvas id="canvas">{{chart1}}</canvas>
   </mat-card>
 
   <mat-card fxFlex="50">
     <h3>EV info NETHERLANDS V2</h3>
     <mat-form-field appearance="fill">
       <mat-label>Year</mat-label>
-      <mat-select [(value)]="selected" class="yearFilter">
+      <mat-select [(value)]="selected" class="yearFilter" (selectionChange)="changeYearChart2($event.value)">
         <mat-option *ngFor="let year of years" [value]="year.value">
           {{year.viewValue}}
         </mat-option>
@@ -72,7 +72,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <mat-card fxFlex="50">
     <h3>EV info NL</h3>
-    <canvas id="canvasChartForBlaNL">{{chart}}</canvas>
+    <canvas id="canvasChartForBlaNL">{{chart1}}</canvas>
   </mat-card>
 
   <mat-card fxFlex="50">

@@ -52,8 +52,8 @@ export class DashboardService {
     return this.http.get(this.url + 'sale-point-geo/countries-map');
   }
 
-  getDummyw() {
-    return this.http.get(this.url + 'sale-point-geo/countries-map/2022') // change the year to variable
+  getDummyw(value: number) {
+    return this.http.get(this.url + `sale-point-geo/countries-map/${value}`) // change the year to variable
       .toPromise().then((data) => {
         return data as YearChartValues
       })
