@@ -43,6 +43,7 @@ import {EvDashboardService} from "./home/shared/ev-dashboard.service";
 import { EvInfoChart1Component } from './home/shared/widgets/ev-info-chart1/ev-info-chart1.component';
 import { EvAllSummaryComponent } from './home/shared/widgets/ev-all-summary/ev-all-summary.component';
 import { EvBigLineChartComponent } from './home/shared/widgets/ev-big-line-chart/ev-big-line-chart.component';
+import { CompaniesNoEvComponent } from './home/shared/widgets/companies-no-ev/companies-no-ev.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { EvBigLineChartComponent } from './home/shared/widgets/ev-big-line-chart
     EvInfoChart1Component,
     EvAllSummaryComponent,
     EvBigLineChartComponent,
+    CompaniesNoEvComponent,
   ],
   imports: [
     BrowserModule,

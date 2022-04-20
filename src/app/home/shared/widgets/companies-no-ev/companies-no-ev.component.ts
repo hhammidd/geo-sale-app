@@ -1,20 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {HousePriceTo} from "./model/HousePriceTo";
+import {HousePriceTo} from "../../../../houseinfo/houseinfo/model/HousePriceTo";
 
 @Component({
-  selector: 'app-houseinfo',
-  templateUrl: './houseinfo.component.html',
-  styleUrls: ['./houseinfo.component.css']
+  selector: 'companies-no-ev',
+  templateUrl: './companies-no-ev.component.html',
+  styleUrls: ['./companies-no-ev.component.css']
 })
-
-
-
-export class HouseinfoComponent implements OnInit {
+export class CompaniesNoEvComponent implements OnInit {
 
   title = 'angular-material-tab-router';
-  navLinks: any[];
-  activeLinkIndex = -1;
+
   dataSource: HousePriceTo[] = [
     {month: "JAN", name: 'Hydrogen', inflation: 1.0079, symbol: 'H'},
     {month: "FEB", name: 'Helium', inflation: 4.0026, symbol: 'He'},
@@ -31,26 +26,15 @@ export class HouseinfoComponent implements OnInit {
   ];
   displayedColumns: string[] = ['month', 'name', 'inflation', 'symbol'];
 
-  constructor(private router: Router) {
-    this.navLinks = [
-      {
-        label: 'Tab1',
-        link: '/tab1',
-        index: 0
-      }, {
-        label: 'Tab2',
-        link: '/tab2',
-        index: 1
-      }, {
-        label: 'Tab3',
-        link: '/tab3',
-        index: 2
-      },
-    ];
+  constructor() {
   }
-  ngOnInit(): void {
-    this.router.events.subscribe((res) => {
-      this.activeLinkIndex = this.navLinks.indexOf(this.navLinks.find(tab => tab.link === '.' + this.router.url));
-    });
+
+  ngOnInit() {
+    const headerRow = document.querySelector('mat-header-row');
+    const matTable = document.querySelector('mat-table');
+    const tableContainer = document.querySelector('.example-container');
+    if (tableContainer && headerRow && matTable) {
+      tableContainer.insertBefore(headerRow, matTable);
+    }
   }
 }
