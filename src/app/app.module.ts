@@ -38,6 +38,9 @@ import {MatTabsModule} from "@angular/material/tabs";
 import { Tab2Component } from './houseinfo/houseinfo/tab2/tab2.component';
 import { Tab3Component } from './houseinfo/houseinfo/tab3/tab3.component';
 import {Tab1Component} from "./houseinfo/houseinfo/tab1/tab1.component";
+import { EvInfoChartComponent } from './home/shared/widgets/ev-info-chart/ev-info-chart.component';
+import {EvDashboardService} from "./home/shared/ev-dashboard.service";
+import { EvInfoChart1Component } from './home/shared/widgets/ev-info-chart1/ev-info-chart1.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +60,8 @@ import {Tab1Component} from "./houseinfo/houseinfo/tab1/tab1.component";
     Tab1Component,
     Tab2Component,
     Tab3Component,
+    EvInfoChartComponent,
+    EvInfoChart1Component,
   ],
   imports: [
     BrowserModule,
@@ -81,7 +86,7 @@ import {Tab1Component} from "./houseinfo/houseinfo/tab1/tab1.component";
     FlexLayoutModule,
     MatTabsModule
   ],
-  providers: [SpmainService, SalepointOlService, DashboardService,
+  providers: [SpmainService, SalepointOlService, DashboardService, EvDashboardService
   ],
   bootstrap: [AppComponent],
   entryComponents: [HomeComponent, SalePointsComponent, SalepointOlComponent, DashboardComponent

@@ -1,0 +1,13 @@
+mat-grid-tile {
+  background-color: lightblue;
+}
+/*.yearFilter .mat-select-trigger {*/
+/*  min-width: 20vw;*/
+/*}*/
+mat-form-field {
+  width: 20%;
+  height: 2px;
+}
+.mat-select-panel {
+  max-height: 80vh !important;
+}

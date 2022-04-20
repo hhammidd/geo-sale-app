@@ -2,12 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Chart, registerables} from 'chart.js';
 import {DashboardService} from "../dashboard/shared/dashboard.service";
 import * as Highcharts from 'highcharts';
-import {environment} from "../../environments/environment";
-
-interface Year {
-  value: number;
-  viewValue: string;
-}
+import { Year } from './shared/widgets/model/Year';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +20,6 @@ export class HomeComponent implements OnInit {
   selected = (new Date()).getFullYear();
 
   title = '';
-  currentApplicationVersion = environment.appVersion;
 
   constructor(private dashboardService: DashboardService) {
     Chart.register(...registerables)
@@ -33,8 +27,6 @@ export class HomeComponent implements OnInit {
 
   result: any;
   resultBar: any;
-  chart1: any = [];
-  chart2: any = [];
   chart3: any = [];
   chart4: any = [];
   chartForBlaNL: any = [];
@@ -45,8 +37,6 @@ export class HomeComponent implements OnInit {
   predictLevel1MockNew: number[] = [30, 60, 70, 80, 100, 88, 155, 112 , 99, 150, 160, 170]
   predictLevel2Mock: number[] = [0, 0, 0, 0, 105, 99, 160, 122 , 100, 160, 170, 175]
   predictLevel2MockNew: number[] = [70, 60, 20, 30, 105, 99, 160, 122 , 100, 160, 170, 175]
-  predictLevel3Mock: number[] = [0, 0, 0, 0, 105, 99, 160, 122 , 100, 160, 170, 175]
-  predictLevel3MockNew: number[] = [80, 80, 80, 80, 110, 110, 167, 120 , 110, 166, 169, 179]
   dataBar: any;
   currentMonthBackgroundColors: any = [
     'rgba(255, 159, 64, 0.2)',
@@ -277,105 +267,6 @@ export class HomeComponent implements OnInit {
       this.ys = this.result.map(res =>
         res.y as number)
 
-      this.chart1 = new Chart('canvas', {
-        type: 'line',
-        data: {
-          labels: this.names,
-          datasets: [{
-            label: 'EV number',
-            data: this.ys,
-            borderWidth: 1,
-            fill: false,
-            backgroundColor: 'rgba(93, 175, 89,0.1 )',
-            borderColor: '#3e95cd',
-            order: 1
-          },{
-            label: 'predict level 1',
-            data: this.predictLevel1Mock,
-            borderWidth: 1,
-            fill: false,
-            backgroundColor: 'rgba(93, 175, 89,0.1 )',
-            borderColor: '#873e23',
-            order: 2
-          },
-            {
-              label: 'predict level 2',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#063970',
-              order: 3
-            }, {
-              label: 'predict level 3',
-              data: this.predictLevel3Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#76b5c5',
-              order: 4
-            },
-            {
-              label: 'current month',
-              data: this.getCurrentMonthData(this.selected),
-              type: 'bar',
-              order: 5,
-              backgroundColor: this.currentMonthBackgroundColors,
-              borderColor: this.boarderColors,
-              borderWidth: 1
-            }]
-        }
-      })
-
-      this.chart2 = new Chart('canvas2', {
-        type: 'line',
-        data: {
-          labels: this.names,
-          datasets: [{
-            label: 'NL',
-            data: this.ys,
-            borderWidth: 1,
-            fill: false,
-            backgroundColor: 'rgba(93, 175, 89,0.1 )',
-            borderColor: '#3e95cd',
-          },{
-            label: 'predict level 1',
-            data: this.predictLevel1Mock,
-            borderWidth: 1,
-            fill: false,
-            backgroundColor: 'rgba(93, 175, 89,0.1 )',
-            borderColor: '#873e23',
-            order: 1
-          },
-            {
-              label: 'predict level 2',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#063970',
-              order: 3
-            }, {
-              label: 'predict level 3',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#76b5c5',
-              order: 4
-            },
-            {
-              label: 'current month',
-              data: this.getCurrentMonthData(this.selected),
-              type: 'bar',
-              order: 2,
-              backgroundColor: this.currentMonthBackgroundColors,
-              borderColor: this.boarderColors,
-              borderWidth: 1
-            }]
-        }
-      })
-
       this.chartForBlaNL = new Chart('canvasChartForBlaNL', {
         type: 'line',
         data: {
@@ -414,14 +305,6 @@ export class HomeComponent implements OnInit {
               backgroundColor: 'rgba(93, 175, 89,0.1 )',
               borderColor: '#063970',
               order: 3
-            }, {
-              label: 'predict level 3',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#76b5c5',
-              order: 4
             }]
         }
       })
@@ -464,14 +347,6 @@ export class HomeComponent implements OnInit {
               backgroundColor: 'rgba(93, 175, 89,0.1 )',
               borderColor: '#063970',
               order: 3
-            }, {
-              label: 'predict level 3',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#76b5c5',
-              order: 4
             }]
         }
       })
@@ -505,14 +380,6 @@ export class HomeComponent implements OnInit {
               backgroundColor: 'rgba(93, 175, 89,0.1 )',
               borderColor: '#063970',
               order: 3
-            }, {
-              label: 'predict level 3',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#76b5c5',
-              order: 4
             }]
         }
       })
@@ -554,14 +421,6 @@ export class HomeComponent implements OnInit {
               backgroundColor: 'rgba(93, 175, 89,0.1 )',
               borderColor: '#063970',
               order: 3
-            }, {
-              label: 'predict level 3',
-              data: this.predictLevel2Mock,
-              borderWidth: 1,
-              fill: false,
-              backgroundColor: 'rgba(93, 175, 89,0.1 )',
-              borderColor: '#76b5c5',
-              order: 4
             }]
         }
       })
@@ -585,45 +444,24 @@ export class HomeComponent implements OnInit {
 
     return array as number[];
   }
-
-  changeYearChart1(yearValue: number) {
-    this.dashboardService.getDummyw(yearValue).then((res) => {
-      this.result = res.chartValues;
-      console.log(this.result)
-
-      this.names = this.result.map(res =>
-        res.name as string)
-
-      this.ys = this.result.map(res =>
-        res.y as number)
-
-
-      this.chart1.data.datasets[0].data = this.ys; // EV number
-      this.chart1.data.datasets[1].data = this.predictLevel1MockNew;
-      this.chart1.data.datasets[2].data = this.predictLevel2MockNew;
-      this.chart1.data.datasets[3].data = this.predictLevel3MockNew;
-      this.chart1.data.datasets[4].data = this.getCurrentMonthData(yearValue);
-      this.chart1.update();
-    });
-  }
-
-  changeYearChart2(yearValue: number) {
-    this.dashboardService.getDummyw(yearValue).then((res) => {
-      this.result = res.chartValues;
-      console.log(this.result)
-
-      this.names = this.result.map(res =>
-        res.name as string)
-
-      this.ys = this.result.map(res =>
-        res.y as number)
-
-      this.chart2.data.datasets[0].data = this.ys; // EV number
-      this.chart2.data.datasets[1].data = this.predictLevel1MockNew;
-      this.chart2.data.datasets[2].data = this.predictLevel2MockNew;
-      this.chart2.data.datasets[3].data = this.predictLevel3MockNew;
-      this.chart2.data.datasets[4].data = this.getCurrentMonthData(yearValue);
-      this.chart2.update();
-    });
-  }
+  //
+  // changeYearChart1(yearValue: number) {
+  //   this.dashboardService.getDummyw(yearValue).then((res) => {
+  //     this.result = res.chartValues;
+  //     console.log(this.result)
+  //
+  //     this.names = this.result.map(res =>
+  //       res.name as string)
+  //
+  //     this.ys = this.result.map(res =>
+  //       res.y as number)
+  //
+  //
+  //     this.chart1.data.datasets[0].data = this.ys; // EV number
+  //     this.chart1.data.datasets[1].data = this.predictLevel1MockNew;
+  //     this.chart1.data.datasets[2].data = this.predictLevel2MockNew;
+  //     this.chart1.data.datasets[3].data = this.getCurrentMonthData(yearValue);
+  //     this.chart1.update();
+  //   });
+  // }
 }

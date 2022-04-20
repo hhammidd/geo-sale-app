@@ -1,0 +1,10 @@
+<h3>EV info NETHERLANDS V2</h3>
+<mat-form-field appearance="fill">
+  <mat-label>Year</mat-label>
+  <mat-select [(value)]="selected" class="yearFilter" (selectionChange)="changeYearChart2($event.value)">
+    <mat-option *ngFor="let year of years" [value]="year.value">
+      {{year.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<canvas id="canvas2">{{chart2}}</canvas>

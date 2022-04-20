@@ -4,7 +4,7 @@ import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
 import {throwError} from "rxjs";
 import {map} from "rxjs/operators"
 import {CountriesBarTo} from "../../sale-points/model/CountriesBarTo";
-import {YearChartValues} from "../../sale-points/model/YearChartValues";
+import {YearChartValues} from "../../home/shared/widgets/model/YearChartValues";
 
 @Injectable({
   providedIn: 'root'
