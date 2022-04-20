@@ -4,7 +4,6 @@ import {EvInfoTo} from "../../sale-points/model/EvInfoTo";
 import {throwError} from "rxjs";
 import {map} from "rxjs/operators"
 import {CountriesBarTo} from "../../sale-points/model/CountriesBarTo";
-import {YearChartValues} from "../../home/shared/widgets/model/YearChartValues";
 
 @Injectable({
   providedIn: 'root'
@@ -50,13 +49,6 @@ export class DashboardService {
 
   getDummy() {
     return this.http.get(this.url + 'sale-point-geo/countries-map');
-  }
-
-  getDummyw(value: number) {
-    return this.http.get(this.url + `sale-point-geo/countries-map/${value}`) // change the year to variable
-      .toPromise().then((data) => {
-        return data as YearChartValues
-      })
   }
 
   getCountryBarCharts() {
