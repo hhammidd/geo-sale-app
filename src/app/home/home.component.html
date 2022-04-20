@@ -35,7 +35,7 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
 
   <mat-card fxFlex="100">
-    <div id="chart-column"></div>
+    <ev-big-line-chart></ev-big-line-chart>
   </mat-card>
 </div>
 
@@ -48,34 +48,23 @@
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <mat-card fxFlex="50">
     <h3>EV info NL</h3>
-
   </mat-card>
 
   <mat-card fxFlex="50">
-    <!--    <h1>{{title}}</h1>-->
     <h3>EV info IT</h3>
-    <!--    <h3>v{{currentApplicationVersion}}</h3> // this is version -->
-<!--    <canvas id="canvasChartForBlaIT">{{chart2}}</canvas>-->
   </mat-card>
-
 </div>
 
 <br>
-
 <mat-divider></mat-divider>
-
 <br>
 
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <mat-card fxFlex="50">
-    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
-                      style="width: 100%; display: block;">
-    </highcharts-chart>
+    <ev-all-summary></ev-all-summary>
   </mat-card>
   <mat-card fxFlex="50">
-    <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
-                      style="width: 100%; display: block;">
-    </highcharts-chart>
+    <ev-all-summary></ev-all-summary>
   </mat-card>
 </div>
 
