@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {YearChartValues} from "./widgets/model/YearChartValues";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {CountriesBarTo} from "../../sale-points/model/CountriesBarTo";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,15 @@ export class EvDashboardService {
       .toPromise().then((data) => {
         return data as YearChartValues
       })
-
   }
+
+  getCountryBarCharts() {
+    console.log("jjj")
+    return this.http.get(this.url + 'sale-point-geo/countries-map').toPromise()
+      .then((data) => {
+        console.log("hello", data)
+        return data as CountriesBarTo
+      })
+  }
+
 }

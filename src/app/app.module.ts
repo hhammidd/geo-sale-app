@@ -41,6 +41,7 @@ import {Tab1Component} from "./houseinfo/houseinfo/tab1/tab1.component";
 import { EvInfoChartComponent } from './home/shared/widgets/ev-info-chart/ev-info-chart.component';
 import {EvDashboardService} from "./home/shared/ev-dashboard.service";
 import { EvInfoChart1Component } from './home/shared/widgets/ev-info-chart1/ev-info-chart1.component';
+import { EvAllSummaryComponent } from './home/shared/widgets/ev-all-summary/ev-all-summary.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { EvInfoChart1Component } from './home/shared/widgets/ev-info-chart1/ev-i
     Tab3Component,
     EvInfoChartComponent,
     EvInfoChart1Component,
+    EvAllSummaryComponent,
   ],
   imports: [
     BrowserModule,

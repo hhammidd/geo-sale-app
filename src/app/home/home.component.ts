@@ -10,40 +10,20 @@ import * as Highcharts from 'highcharts';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private dashboardService: DashboardService) {
-    Chart.register(...registerables)
+  constructor() {
   }
 
   result: any;
-  resultBar: any;
   names: any;
   ys: any;
   dataBar: any;
 
-  public barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-    scales: {
-      xAxes: [{
-        stacked: true
-      }],
-      yAxes: [{
-        stacked: true
-      }]
-    }
-  };
-
-
-  public barChartLabels: string[];
-  public barChartType: string = 'bar';
-  public barChartLegend: boolean = true;
 
   Highcharts = Highcharts;
   chartOptions: {};
 
   ngOnInit(): void {
     this.createChartColumn();
-    this.createCountriesLineChart();
   }
 
   private createChartColumn(): void {
@@ -97,45 +77,6 @@ export class HomeComponent implements OnInit {
       }],
     } as any);
 
-    const chart1 = Highcharts.chart('chart-column1' as any, {
-      chart: {
-        type: 'column',
-      },
-      title: {
-        text: 'Column Chart',
-      },
-      credits: {
-        enabled: false,
-      },
-      legend: {
-        enabled: false,
-      },
-      yAxis: {
-        min: 0,
-        title: undefined,
-      },
-      xAxis: {
-        type: 'category',
-      },
-      tooltip: {
-        headerFormat: `<div>Date: {point.key}</div>`,
-        pointFormat: `<div>{series.name}: {point.y}</div>`,
-        shared: true,
-        useHTML: true,
-      },
-      plotOptions: {
-        bar: {
-          dataLabels: {
-            enabled: true,
-          },
-        },
-      },
-      series: [{
-        name: 'Amount',
-        data,
-      }],
-    } as any);
-
     setInterval(() => {
       date.setDate(date.getDate() + 1);
       chart.series[0].addPoint({
@@ -147,63 +88,5 @@ export class HomeComponent implements OnInit {
 
   private getRandomNumber(min: number, max: number): number {
     return Math.floor(Math.random() * (max - min + 1) + min)
-  }
-
-  private createCountriesLineChart() {
-    this.dashboardService.getCountryBarCharts().then(res2 => {
-      this.resultBar = res2.barValues;
-      console.log("nn", this.resultBar);
-
-      this.chartOptions =
-        {
-          chart: {
-            type: 'column'
-          },
-          title: {
-            text: 'Monthly Average EV basket size'
-          },
-          subtitle: {
-            text: 'Source: WorldClimate.com'
-          },
-          xAxis: {
-            categories: [
-              'Jan',
-              'Feb',
-              'Mar',
-              'Apr',
-              'May',
-              'Jun',
-              'Jul',
-              'Aug',
-              'Sep',
-              'Oct',
-              'Nov',
-              'Dec'
-            ],
-            crosshair: true
-          },
-          yAxis: {
-            min: 0,
-            title: {
-              text: 'Rainfall (mm)'
-            }
-          },
-          tooltip: {
-            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-              '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-            footerFormat: '</table>',
-            shared: true,
-            useHTML: true
-          },
-          plotOptions: {
-            column: {
-              pointPadding: 0.2,
-              borderWidth: 0
-            }
-          },
-          series: this.resultBar
-        }
-    })
   }
 }

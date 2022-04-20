@@ -51,15 +51,6 @@ export class DashboardService {
     return this.http.get(this.url + 'sale-point-geo/countries-map');
   }
 
-  getCountryBarCharts() {
-    console.log("jjj")
-    return this.http.get(this.url + 'sale-point-geo/countries-map').toPromise()
-      .then((data) => {
-        console.log("hello", data)
-        return data as CountriesBarTo
-      })
-  }
-
   errorHandler(error: HttpErrorResponse) {
     return throwError(error.message || "server error.");
   }
