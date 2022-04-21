@@ -1,6 +1,6 @@
 export interface HousePriceTo {
-  name: string;
-  month: string;
-  inflation: number;
+  no: number;
+  brand: string;
+  amount: number;
   symbol: string;
 }

@@ -11,20 +11,20 @@ export class CompaniesNoEvComponent implements OnInit {
   title = 'angular-material-tab-router';
 
   dataSource: HousePriceTo[] = [
-    {month: "JAN", name: 'Hydrogen', inflation: 1.0079, symbol: 'H'},
-    {month: "FEB", name: 'Helium', inflation: 4.0026, symbol: 'He'},
-    {month: "MAR", name: 'Lithium', inflation: 6.941, symbol: 'Li'},
-    {month: "APR", name: 'Beryllium', inflation: 9.0122, symbol: 'Be'},
-    {month: "MAY", name: 'Boron', inflation: 10.811, symbol: 'B'},
-    {month: "JUN", name: 'Carbon', inflation: 12.0107, symbol: 'C'},
-    {month: "JUL", name: 'Nitrogen', inflation: 14.0067, symbol: 'N'},
-    {month: "AUG", name: 'Oxygen', inflation: 15.9994, symbol: 'O'},
-    {month: "SEP", name: 'Fluorine', inflation: 18.9984, symbol: 'F'},
-    {month: "OCT", name: 'Neon', inflation: 20.1797, symbol: 'Ne'},
-    {month: "NOV", name: 'Neon', inflation: 20.1797, symbol: 'Ne'},
-    {month: "DEC", name: 'Neon', inflation: 20.1797, symbol: 'Ne'},
+    {no: 1, brand: 'Hydrogen', amount: 1.0079, symbol: 'H'},
+    {no: 2, brand: 'Helium', amount: 4.0026, symbol: 'He'},
+    {no: 3, brand: 'Lithium', amount: 6.941, symbol: 'Li'},
+    {no: 4, brand: 'Beryllium', amount: 9.0122, symbol: 'Be'},
+    {no: 5, brand: 'Boron', amount: 10.811, symbol: 'B'},
+    {no: 6, brand: 'Carbon', amount: 12.0107, symbol: 'C'},
+    {no: 7, brand: 'Nitrogen', amount: 14.0067, symbol: 'N'},
+    {no: 8, brand: 'Oxygen', amount: 15.9994, symbol: 'O'},
+    {no: 9, brand: 'Fluorine', amount: 18.9984, symbol: 'F'},
+    {no: 10, brand: 'Neon', amount: 20.1797, symbol: 'Ne'},
+    {no: 11, brand: 'Neon', amount: 20.1797, symbol: 'Ne'},
+    {no: 12, brand: 'Neon', amount: 20.1797, symbol: 'Ne'},
   ];
-  displayedColumns: string[] = ['month', 'name', 'inflation', 'symbol'];
+  displayedColumns: string[] = ['no', 'brand', 'amount', 'symbol'];
 
   constructor() {
   }
