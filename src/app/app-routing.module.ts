@@ -5,6 +5,7 @@ import {SalepointOlComponent} from "./salepoint-ol/salepoint-ol.component";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {GeofilteringComponent} from "./sale-points/geofiltering/geofiltering.component";
 import {HouseinfoComponent} from "./houseinfo/houseinfo/houseinfo.component";
+import {LocalizationComponent} from "./localization/localization.component";
 
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'salepointol', component: SalepointOlComponent},
   {path: 'dashboard', component: DashboardComponent},
   {path: 'houseinfo', component: HouseinfoComponent},
+  {path: 'localization', component: LocalizationComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'}
   // {path: 'salepointdashboardmap', component: SalepointdashboardmapComponent},
   // {path: '404', component: NotFoundComponent},

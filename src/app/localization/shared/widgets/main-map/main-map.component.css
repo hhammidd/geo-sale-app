@@ -1,0 +1,11 @@
+.example-spacer {
+  flex: 0 0 auto;
+}
+
+.buttonHolder {
+  text-align: center;
+}
+
+.buttonFilterGEo {
+  width: 50%;
+}

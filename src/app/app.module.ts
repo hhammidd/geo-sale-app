@@ -9,6 +9,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import {LayoutModule} from "@angular/cdk/layout";
 import {MatToolbarModule} from "@angular/material/toolbar";
+import { MatTooltipModule} from '@angular/material/tooltip';
 import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatIconModule} from "@angular/material/icon";
@@ -44,6 +45,10 @@ import { EvInfoChart1Component } from './home/shared/widgets/ev-info-chart1/ev-i
 import { EvAllSummaryComponent } from './home/shared/widgets/ev-all-summary/ev-all-summary.component';
 import { EvBigLineChartComponent } from './home/shared/widgets/ev-big-line-chart/ev-big-line-chart.component';
 import { CompaniesNoEvComponent } from './home/shared/widgets/companies-no-ev/companies-no-ev.component';
+import { LocalizationComponent } from './localization/localization.component';
+import { MainMapComponent } from './localization/shared/widgets/main-map/main-map.component';
+import { FilterBarComponent } from './localization/shared/widgets/filter-bar/filter-bar.component';
+import { MicroMapperComponent } from './localization/shared/widgets/micro-mapper/micro-mapper.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +73,10 @@ import { CompaniesNoEvComponent } from './home/shared/widgets/companies-no-ev/co
     EvAllSummaryComponent,
     EvBigLineChartComponent,
     CompaniesNoEvComponent,
+    LocalizationComponent,
+    MainMapComponent,
+    FilterBarComponent,
+    MicroMapperComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,7 +99,8 @@ import { CompaniesNoEvComponent } from './home/shared/widgets/companies-no-ev/co
     MatMenuModule,
     HighchartsChartModule,
     FlexLayoutModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTooltipModule
   ],
   providers: [SpmainService, SalepointOlService, DashboardService, EvDashboardService
   ],

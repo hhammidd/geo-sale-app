@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+th, td {
+  overflow: hidden;
+  width: 80px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+table {
+  width: 100%;
+}
+.example-container {
+  /*should be correlated to map */
+  height: 480px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.example-spacer {
+  flex: 0 0 auto;
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/css/ol.css"
+        type="text/css">
+  <style>
+    .map {
+      height: 400px;
+      width: 100%;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.9.0/build/ol.js"></script>
+  <title>OpenLayers example</title>
+</head>
+<body>
+
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon style='font-size:150%;'>map</mat-icon>
+  </button>
+  <span style='font-size:80%;'>Map</span>
+  <span class="example-spacer"></span>
+</mat-toolbar>
+
+<form (ngSubmit)="onSubmit()">
+  <div id="map" class="map"></div>
+  <div class="overlay-container">
+    <span class="overlay-text" id="feature-id"></span><br>
+    <span class="overlay-text" id="feature-name"></span><br>
+  </div><br>
+  <br>
+  <div class="buttonHolder">
+    <button class="buttonFilterGEo" type="submit filter" mat-raised-button color="primary">Filter on geo</button>
+  </div>
+</form>
+</body>
+</html>
+
