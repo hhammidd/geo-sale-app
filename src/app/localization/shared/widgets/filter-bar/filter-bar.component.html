@@ -6,23 +6,28 @@
   <span class="example-spacer"></span>
 </mat-toolbar>
 <div class="example-container mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSourcebb" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="no">
-      <th mat-header-cell *matHeaderCellDef> No </th>
+      <th mat-header-cell *matHeaderCellDef> No</th>
       <td mat-cell *matCellDef="let element"> {{element.no}} </td>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Geo Name </th>
+      <th mat-header-cell *matHeaderCellDef> Geo Name</th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <!--      <td mat-cell *matCellDef="let element"> {{message}} </td>-->
+
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="other">
-      <th mat-header-cell *matHeaderCellDef> Other </th>
+      <th mat-header-cell *matHeaderCellDef> Other</th>
+      <td mat-cell *matCellDef="let element">
+        <a (click)="openDialog('Delete',element)">Delete</a>
+      </td>
       <td mat-cell *matCellDef="let element"> {{element.other}} </td>
     </ng-container>
 

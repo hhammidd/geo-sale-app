@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {HousePriceTo} from "../../../../houseinfo/houseinfo/model/HousePriceTo";
+import {Component, Input, OnInit} from '@angular/core';
 import { GeosName } from '../../model/GeosName';
+import {MapGeoService} from "../../map-geo.service";
 
 @Component({
   selector: 'filter-bar',
@@ -10,33 +10,34 @@ import { GeosName } from '../../model/GeosName';
 export class FilterBarComponent implements OnInit {
 
   title = 'angular-material-tab-router';
-
-  dataSource: GeosName[] = [
-    {no: 1, name: 'City1', other: 'bla'},
-    {no: 2, name: 'City2', other: 'bla'},
-    {no: 3, name: 'Milan', other: 'bla'},
-    {no: 4, name: 'Milan', other: 'bla'},
-    {no: 5, name: 'Milan', other: 'bla'},
-    {no: 6, name: 'Milan', other: 'bla'},
-    {no: 7, name: 'Milan', other: 'bla'},
-    {no: 8, name: 'Milan', other: 'bla'},
-    {no: 9, name: 'Milan', other: 'bla'},
-    {no: 7, name: 'Milan', other: 'bla'},
-    {no: 8, name: 'Milan', other: 'bla'},
-    {no: 9, name: 'Milan', other: 'bla'},
-  ];
-  displayedColumns: string[] = ['no', 'name', 'other'];
-
-  constructor() {
+  // @Input() dataSourcebb: GeosName[];
+  dataSourcebb: GeosName[];
+  constructor(public mapGeoService: MapGeoService) {
   }
 
+  message: string;
+
+  displayedColumns: string[] = ['no', 'name', 'other'];
+
+
   ngOnInit() {
+    this.mapGeoService.currentMessage.subscribe(message => {
+        console.log('bla new message is from filetr: ', message)
+        this.dataSourcebb = message
+    })
     const headerRow = document.querySelector('mat-header-row');
     const matTable = document.querySelector('mat-table');
     const tableContainer = document.querySelector('.example-container');
     if (tableContainer && headerRow && matTable) {
       tableContainer.insertBefore(headerRow, matTable);
     }
+  // this.mapGeoService.selectedgeo$.subscribe((value) => {
+  //   console.log('hello  ', value)
+  //   this.dataSource = value
+  // })
   }
 
+  openDialog(delete1: string, element) {
+    console.log('tried to delete')
+  }
 }

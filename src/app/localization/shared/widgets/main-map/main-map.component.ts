@@ -12,6 +12,8 @@ import LayerGroup from "ol/layer/Group";
 import MAP from "ol/Map";
 import View from "ol/View";
 import Overlay from "ol/Overlay";
+import {GeosName} from "../../model/GeosName";
+import {MapGeoService} from "../../map-geo.service";
 
 @Component({
   selector: 'main-map',
@@ -20,14 +22,21 @@ import Overlay from "ol/Overlay";
 })
 export class MainMapComponent implements OnInit {
 
+  dataSourcebb: GeosName[] = []
+
+
   geoList = new Set<string>(); // to prevent duplication
 
-  constructor(public service: SalepointOlService) {
+  constructor(public service: SalepointOlService,
+              public mapGeoService: MapGeoService) {
   }
 
   selects: string[] = [];
 
   ngOnInit(): void {
+    // this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
+    this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
+
     this.initializeMap();
   }
 
@@ -106,11 +115,12 @@ export class MainMapComponent implements OnInit {
 
     let geoSelected  = new Set<string>();
 
-    function selectMap() {
-      return function(features) {
+    const selectMap = () => {
+      return (features) => {
         if (!features.length) {
           selection = {};
           geoSelected.clear();
+          this.newGeo(geoSelected)
           selectionLayer.changed();
           return;
         }
@@ -121,13 +131,16 @@ export class MainMapComponent implements OnInit {
 
         const fid : any = feature.getId();
         if (fid in selection) { // remove double click
-          console.log('', fid);
+          console.log('double click', fid);
           geoSelected.delete(fid.toString());
+          this.newGeo(geoSelected)
           delete selection[fid];
           selectionLayer.changed();
           return;
         }
         geoSelected.add(fid);
+        this.newGeo(geoSelected)
+        // TODO add to other as well
         selection[fid] = feature;
         selectionLayer.changed();
       }
@@ -139,9 +152,36 @@ export class MainMapComponent implements OnInit {
     this.geoList = geoSelected;
   }
 
+  private newGeo(geoSelected: Set<string>) {
+    let ww: GeosName[] = [];
+
+    geoSelected.forEach( geoName =>
+      ww.push({ no: 1, name: geoName, other: 'bla'}))
+
+    this.mapGeoService.changeMessage(ww)
+  }
+
   onSubmit(){
     console.log('geo to be filtered: ', this.geoList);
     this.service.getGeos(this.geoList);
   }
 
+  message: string;
+  newMessage() {
+    const newDataSourcebb: GeosName[] = [
+      {no: 1, name: 'City1', other: 'bla'},
+      {no: 2, name: 'City2', other: 'bla'},
+      {no: 3, name: 'Milan', other: 'bla'},
+      {no: 4, name: 'Milan', other: 'bla'},
+      {no: 5, name: 'Milan', other: 'bla'},
+      {no: 6, name: 'Milan', other: 'bla'},
+      {no: 7, name: 'Milan', other: 'bla'},
+      {no: 8, name: 'Milan', other: 'bla'},
+      {no: 9, name: 'Milan', other: 'bla'},
+      {no: 7, name: 'Milan', other: 'bla'},
+      {no: 8, name: 'Milan', other: 'bla'},
+      {no: 9, name: 'Milan', other: 'bla'},
+    ];
+    this.mapGeoService.changeMessage(newDataSourcebb)
+  }
 }

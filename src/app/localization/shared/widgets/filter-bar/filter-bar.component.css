@@ -5,7 +5,8 @@ table {
 
 th, td {
   overflow: hidden;
-  width: 80px;
+  /* distance btw columns */
+  width: 50x;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

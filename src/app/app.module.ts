@@ -49,6 +49,7 @@ import { LocalizationComponent } from './localization/localization.component';
 import { MainMapComponent } from './localization/shared/widgets/main-map/main-map.component';
 import { FilterBarComponent } from './localization/shared/widgets/filter-bar/filter-bar.component';
 import { MicroMapperComponent } from './localization/shared/widgets/micro-mapper/micro-mapper.component';
+import { FormmeComponent } from './formme/formme.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { MicroMapperComponent } from './localization/shared/widgets/micro-mapper
     MainMapComponent,
     FilterBarComponent,
     MicroMapperComponent,
+    FormmeComponent,
   ],
   imports: [
     BrowserModule,
