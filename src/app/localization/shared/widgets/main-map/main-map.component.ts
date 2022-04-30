@@ -37,6 +37,7 @@ export class MainMapComponent implements OnInit {
   selects: string[] = [];
   selectionLayer: any;
   selection: any = {}
+  geoSelected  = new Set<any>();
 
   ngOnInit(): void {
     // this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
@@ -122,14 +123,14 @@ export class MainMapComponent implements OnInit {
     });
     map.addOverlay(overlayLayer);
 
-    let geoSelected  = new Set<any>();
+    // let geoSelected  = new Set<any>();
 
     const selectMap = () => {
       return (features) => {
         if (!features.length) {
           this.selection = [];
-          geoSelected.clear();
-          this.newGeo(geoSelected)
+          this.geoSelected.clear();
+          this.newGeo(this.geoSelected)
           this.selectionLayer.changed();
           return;
         }
@@ -141,16 +142,16 @@ export class MainMapComponent implements OnInit {
         const fid : any = feature.getId();
         if (fid in this.selection) { // remove double click
           console.log('double click', fid);
-          geoSelected.delete('ITA_adm1.13');
-          this.newGeo(geoSelected)
+          this.geoSelected.delete(fid);
+          this.newGeo(this.geoSelected)
           delete this.selection[fid];
           // this.selectionLayer.changed();
           // this.selectionLayer.removeFeature(this.selectionLayer.getFeatureById('ITA_adm1.13', fid))
           this.selectionLayer.changed();
           return;
         }
-        geoSelected.add(fid);
-        this.newGeo(geoSelected)
+        this.geoSelected.add(fid);
+        this.newGeo(this.geoSelected)
         // TODO add to other as well
         this.selection[fid] = feature;
         this.selectionLayer.changed();
@@ -160,7 +161,7 @@ export class MainMapComponent implements OnInit {
       vectorLayer.getFeatures(e.pixel).then( selectMap())
     });
 
-    this.geoList = geoSelected;
+    this.geoList = this.geoSelected;
   }
 
   private newGeo(geoSelected: Set<any>) {
@@ -195,6 +196,8 @@ export class MainMapComponent implements OnInit {
       console.log('delete message', name2);
       delete this.selection[name2];
       this.selectionLayer.changed();
+      this.geoSelected.delete(name2);
+      this.newGeo(this.geoSelected)
       // this.deletedGeo
       return;
     } else {
