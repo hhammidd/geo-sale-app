@@ -26,7 +26,7 @@
     <ng-container matColumnDef="other">
       <th mat-header-cell *matHeaderCellDef> Other</th>
       <td mat-cell *matCellDef="let element">
-        <a (click)="openDialog('Delete',element)">Delete</a>
+        <a (click)="openDialog('Delete',element.name)">Delete</a>
       </td>
       <td mat-cell *matCellDef="let element"> {{element.other}} </td>
     </ng-container>

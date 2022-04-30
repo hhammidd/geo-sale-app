@@ -14,6 +14,9 @@ import View from "ol/View";
 import Overlay from "ol/Overlay";
 import {GeosName} from "../../model/GeosName";
 import {MapGeoService} from "../../map-geo.service";
+import {Geometry} from "ol/geom";
+import {Vector} from "ol/layer";
+import {Options} from "ol/Tile";
 
 @Component({
   selector: 'main-map',
@@ -23,7 +26,7 @@ import {MapGeoService} from "../../map-geo.service";
 export class MainMapComponent implements OnInit {
 
   dataSourcebb: GeosName[] = []
-
+  deletedGeo: string = ''
 
   geoList = new Set<string>(); // to prevent duplication
 
@@ -32,11 +35,19 @@ export class MainMapComponent implements OnInit {
   }
 
   selects: string[] = [];
+  selectionLayer: any;
+  selection: any = {}
 
   ngOnInit(): void {
     // this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
     this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
-
+    this.mapGeoService.currentSelection.subscribe(messageSelection => this.selection = messageSelection)
+    this.mapGeoService.currentSelectionLayer.subscribe(messageSelectionLayerSource => this.selectionLayer = messageSelectionLayerSource)
+    this.mapGeoService.currentDeletedGeo.subscribe(messageDeletedGeo =>
+    {
+      this.deletedGeo = messageDeletedGeo
+      this.newMessage(messageDeletedGeo)
+    } )
     this.initializeMap();
   }
 
@@ -95,17 +106,15 @@ export class MainMapComponent implements OnInit {
       }),
     });
     // Selection
-    const selectionLayer = new VectorLayer({
+    this.selectionLayer = new VectorLayer({
       map: map,
       source: vectorLayer.getSource(),
-      style: function (feature) {
-        if (feature.getId()! in selection) {
-          return selectedCountry;
-        }
-      },
+      style: (feature) => {
+          if (feature.getId()! in this.selection) {
+            return selectedCountry;
+          }
+      } ,
     });
-
-    let selection = {};
 
     const overlayContainerElement: HTMLElement = document.querySelector('.overlay-container')!;
     const overlayLayer = new Overlay({
@@ -113,15 +122,15 @@ export class MainMapComponent implements OnInit {
     });
     map.addOverlay(overlayLayer);
 
-    let geoSelected  = new Set<string>();
+    let geoSelected  = new Set<any>();
 
     const selectMap = () => {
       return (features) => {
         if (!features.length) {
-          selection = {};
+          this.selection = [];
           geoSelected.clear();
           this.newGeo(geoSelected)
-          selectionLayer.changed();
+          this.selectionLayer.changed();
           return;
         }
         const feature = features[0];
@@ -130,19 +139,21 @@ export class MainMapComponent implements OnInit {
         }
 
         const fid : any = feature.getId();
-        if (fid in selection) { // remove double click
+        if (fid in this.selection) { // remove double click
           console.log('double click', fid);
-          geoSelected.delete(fid.toString());
+          geoSelected.delete('ITA_adm1.13');
           this.newGeo(geoSelected)
-          delete selection[fid];
-          selectionLayer.changed();
+          delete this.selection[fid];
+          // this.selectionLayer.changed();
+          // this.selectionLayer.removeFeature(this.selectionLayer.getFeatureById('ITA_adm1.13', fid))
+          this.selectionLayer.changed();
           return;
         }
         geoSelected.add(fid);
         this.newGeo(geoSelected)
         // TODO add to other as well
-        selection[fid] = feature;
-        selectionLayer.changed();
+        this.selection[fid] = feature;
+        this.selectionLayer.changed();
       }
     }
     map.on('click', function ( e) {
@@ -152,7 +163,7 @@ export class MainMapComponent implements OnInit {
     this.geoList = geoSelected;
   }
 
-  private newGeo(geoSelected: Set<string>) {
+  private newGeo(geoSelected: Set<any>) {
     let ww: GeosName[] = [];
 
     geoSelected.forEach( geoName =>
@@ -167,21 +178,27 @@ export class MainMapComponent implements OnInit {
   }
 
   message: string;
-  newMessage() {
-    const newDataSourcebb: GeosName[] = [
-      {no: 1, name: 'City1', other: 'bla'},
-      {no: 2, name: 'City2', other: 'bla'},
-      {no: 3, name: 'Milan', other: 'bla'},
-      {no: 4, name: 'Milan', other: 'bla'},
-      {no: 5, name: 'Milan', other: 'bla'},
-      {no: 6, name: 'Milan', other: 'bla'},
-      {no: 7, name: 'Milan', other: 'bla'},
-      {no: 8, name: 'Milan', other: 'bla'},
-      {no: 9, name: 'Milan', other: 'bla'},
-      {no: 7, name: 'Milan', other: 'bla'},
-      {no: 8, name: 'Milan', other: 'bla'},
-      {no: 9, name: 'Milan', other: 'bla'},
-    ];
-    this.mapGeoService.changeMessage(newDataSourcebb)
+
+  newMessageold() {
+    if (this.deletedGeo in this.selection) { // remove double click
+      console.log('delete message', this.deletedGeo);
+      delete this.selection[this.deletedGeo];
+      this.selectionLayer.changed();
+      this.deletedGeo
+      return;
+    }
+  }
+
+  newMessage(name2: string) {
+    console.log('cam here anme: ', name2)
+    if (name2 in this.selection) { // remove double click
+      console.log('delete message', name2);
+      delete this.selection[name2];
+      this.selectionLayer.changed();
+      // this.deletedGeo
+      return;
+    } else {
+      console.log('was not in selectyuiolkjhg')
+    }
   }
 }
