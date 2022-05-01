@@ -1,19 +1,25 @@
 import { Injectable } from '@angular/core';
 import {BehaviorSubject} from "rxjs";
 import {GeosName} from "./model/GeosName";
+import {HttpClient} from "@angular/common/http";
+import {RegionsDto} from "../../sale-points/model/RegionsDto";
+import {RegionTo} from "./model/RegionTo";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapGeoService {
+
+  private geoUrl: string;
+
+  constructor(private http: HttpClient) {
+    // this.geoUrl = 'http://localhost:8092/'; // local
+    this.geoUrl = 'http://94.130.228.242:32737/';
+  }
+
   private geoSource = new BehaviorSubject<GeosName[]>([]);
   currentMessage = this.geoSource.asObservable();
-  // private geoSource = new BehaviorSubject<Set<string>>([]);
-  // currentMessage = this.geoSource.asObservable();
-  // private geoSource = new BehaviorSubject<string>("default message");
-  // currentMessage = this.geoSource.asObservable();
 
-  // selectedgeo$ = this.geos$.asObservable();
   private selectionSource = new BehaviorSubject<any>({});
   currentSelection = this.selectionSource.asObservable();
 
@@ -22,7 +28,6 @@ export class MapGeoService {
 
   private deletedGeoSource = new BehaviorSubject<string>('');
   currentDeletedGeo = this.deletedGeoSource.asObservable();
-  constructor() { }
 
   changeMessage(geo: GeosName[]){
     this.geoSource.next(geo)
@@ -35,10 +40,9 @@ export class MapGeoService {
   changeDeletedGeoMessage(deletedGeo: string){
     this.deletedGeoSource.next(deletedGeo)
   }
-  // changeMessage(geo: Set<string>){
-  //   this.geoSource.next(geo)
-  // }
-  // setGeos(geo: GeosName[]) {
-  //   this.geos$.next(geo);
-  // }
+
+  getRegions() {
+    return this.http.get<RegionTo[]>(this.geoUrl + 'region-config');
+  }
+
 }

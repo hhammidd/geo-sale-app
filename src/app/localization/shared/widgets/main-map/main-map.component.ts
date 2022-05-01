@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SalepointOlService} from "../../../../salepoint-ol/shared/salepoint-ol.service";
 import TileLayer from "ol/layer/Tile";
 import TileWMS from "ol/source/TileWMS";
@@ -14,9 +14,7 @@ import View from "ol/View";
 import Overlay from "ol/Overlay";
 import {GeosName} from "../../model/GeosName";
 import {MapGeoService} from "../../map-geo.service";
-import {Geometry} from "ol/geom";
-import {Vector} from "ol/layer";
-import {Options} from "ol/Tile";
+import {RegionTo} from "../../model/RegionTo";
 
 @Component({
   selector: 'main-map',
@@ -37,18 +35,20 @@ export class MainMapComponent implements OnInit {
   selects: string[] = [];
   selectionLayer: any;
   selection: any = {}
-  geoSelected  = new Set<any>();
+  geoSelected = new Set<any>();
+
+  regions: RegionTo[] = []
+
 
   ngOnInit(): void {
-    // this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
+    this.mapGeoService.getRegions().subscribe(res => this.regions = res);
     this.mapGeoService.currentMessage.subscribe(message => this.dataSourcebb = message)
     this.mapGeoService.currentSelection.subscribe(messageSelection => this.selection = messageSelection)
     this.mapGeoService.currentSelectionLayer.subscribe(messageSelectionLayerSource => this.selectionLayer = messageSelectionLayerSource)
-    this.mapGeoService.currentDeletedGeo.subscribe(messageDeletedGeo =>
-    {
+    this.mapGeoService.currentDeletedGeo.subscribe(messageDeletedGeo => {
       this.deletedGeo = messageDeletedGeo
       this.newMessage(messageDeletedGeo)
-    } )
+    })
     this.initializeMap();
   }
 
@@ -100,7 +100,7 @@ export class MainMapComponent implements OnInit {
 
     const map = new MAP({
       target: 'map',
-      layers: [grp ],
+      layers: [grp],
       view: new View({
         center: [-78906677.036667, 5444438.895],
         zoom: 5
@@ -111,10 +111,10 @@ export class MainMapComponent implements OnInit {
       map: map,
       source: vectorLayer.getSource(),
       style: (feature) => {
-          if (feature.getId()! in this.selection) {
-            return selectedCountry;
-          }
-      } ,
+        if (feature.getId()! in this.selection) {
+          return selectedCountry;
+        }
+      },
     });
 
     const overlayContainerElement: HTMLElement = document.querySelector('.overlay-container')!;
@@ -139,7 +139,7 @@ export class MainMapComponent implements OnInit {
           return;
         }
 
-        const fid : any = feature.getId();
+        const fid: any = feature.getId();
         if (fid in this.selection) { // remove double click
           console.log('double click', fid);
           this.geoSelected.delete(fid);
@@ -157,8 +157,8 @@ export class MainMapComponent implements OnInit {
         this.selectionLayer.changed();
       }
     }
-    map.on('click', function ( e) {
-      vectorLayer.getFeatures(e.pixel).then( selectMap())
+    map.on('click', function (e) {
+      vectorLayer.getFeatures(e.pixel).then(selectMap())
     });
 
     this.geoList = this.geoSelected;
@@ -167,28 +167,19 @@ export class MainMapComponent implements OnInit {
   private newGeo(geoSelected: Set<any>) {
     let ww: GeosName[] = [];
 
-    geoSelected.forEach( geoName =>
-      ww.push({ no: 1, name: geoName, other: 'bla'}))
+
+    geoSelected.forEach(geoName =>
+      ww.push({no: 1, name: this.getGeoName(geoName), other: 'bla'}))
 
     this.mapGeoService.changeMessage(ww)
   }
 
-  onSubmit(){
+  onSubmit() {
     console.log('geo to be filtered: ', this.geoList);
     this.service.getGeos(this.geoList);
   }
 
   message: string;
-
-  newMessageold() {
-    if (this.deletedGeo in this.selection) { // remove double click
-      console.log('delete message', this.deletedGeo);
-      delete this.selection[this.deletedGeo];
-      this.selectionLayer.changed();
-      this.deletedGeo
-      return;
-    }
-  }
 
   newMessage(name2: string) {
     console.log('cam here anme: ', name2)
@@ -203,5 +194,20 @@ export class MainMapComponent implements OnInit {
     } else {
       console.log('was not in selectyuiolkjhg')
     }
+  }
+
+  private getGeoName(geoStringCode: any): string {
+    const geoCode: number = geoStringCode.split('.').pop() as number;
+    console.log('geoCode', geoCode)
+    var geoName: string = ''
+    this.regions.filter((region: RegionTo) => {
+      if (Number(geoCode) === region.codeGeo) {
+        geoName = region.regionName
+      }
+    })
+    console.log('dddd', geoName)
+
+    return geoName;
+
   }
 }
