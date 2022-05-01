@@ -19,7 +19,7 @@ export class FilterBarComponent implements OnInit {
 
   message: string;
 
-  displayedColumns: string[] = ['no', 'name', 'other'];
+  displayedColumns: string[] = [ 'name', 'other'];
   selectionLayer: any;
   selection: any = {}
   deletedGeo: string = ''
