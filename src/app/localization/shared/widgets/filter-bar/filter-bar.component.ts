@@ -12,7 +12,6 @@ import {SalepointOlService} from "../../../../salepoint-ol/shared/salepoint-ol.s
 export class FilterBarComponent implements OnInit {
 
   title = 'angular-material-tab-router';
-  // @Input() dataSourcebb: GeosName[];
   dataSourcebb: GeosName[];
   constructor(public service: SalepointOlService,
               public mapGeoService: MapGeoService) {
@@ -39,20 +38,11 @@ export class FilterBarComponent implements OnInit {
     if (tableContainer && headerRow && matTable) {
       tableContainer.insertBefore(headerRow, matTable);
     }
-  // this.mapGeoService.selectedgeo$.subscribe((value) => {
-  //   console.log('hello  ', value)
-  //   this.dataSource = value
-  // })
   }
 
   openDialog(delete1: string, element: string) {
     console.log('tried to delete name: ', element)
     this.deletedGeo = element
     this.mapGeoService.changeDeletedGeoMessage(element)
-    // this.selection = [];
-    // this.selectionLayer.changed();
-    // let myCompOneObj = new MainMapComponent(this.service, this.mapGeoService);
-    //
-    // myCompOneObj.newMessage(element);
   }
 }

@@ -1,5 +1,5 @@
 export interface GeosName {
-  no: number;
+  no: string;
   name: string;
   other: string;
 }

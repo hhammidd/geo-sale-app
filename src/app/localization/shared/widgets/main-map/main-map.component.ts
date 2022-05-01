@@ -169,7 +169,7 @@ export class MainMapComponent implements OnInit {
 
 
     geoSelected.forEach(geoName =>
-      ww.push({no: 1, name: this.getGeoName(geoName), other: 'bla'}))
+      ww.push({no: geoName, name: this.getGeoName(geoName), other: 'bla'}))
 
     this.mapGeoService.changeMessage(ww)
   }
