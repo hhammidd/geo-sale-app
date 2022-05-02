@@ -19,19 +19,11 @@ export class MicroMapperComponent implements OnInit {
     this.mapGeoService.currentSelectedCountry.subscribe(messageSelectedCountrySource => this.selectedCountry = messageSelectedCountrySource)
   }
 
-  countries: Country[] = [
-    {value: '1', viewValue: 'Netherlands'},
-    {value: '2', viewValue: 'Italy'},
-    {value: '3', viewValue: 'Belgium'},
-  ];
-
   deselectAll(s: string) {
-    console.log('deselect All call: ')
     this.mapGeoService.changeDeselectAllSource(s)
   }
 
   changeSelectedCountry(selectedCountry: string) {
-    console.log('change country: ', selectedCountry)
     this.selectedCountry = selectedCountry;
     this.mapGeoService.changeSelectedCountrySource(selectedCountry)
 

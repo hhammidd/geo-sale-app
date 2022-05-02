@@ -74,9 +74,7 @@ export class MainMapComponent implements OnInit {
 
     this.mapGeoService.currentSelectedCountry.subscribe(messageSelectedCountrySource => {
       this.selectedCountryName = messageSelectedCountrySource;
-      console.log('map is changed')
       if (this.selectedCountryName === 'Italy') {
-        console.log('create second')
         this.map.setTarget('')
         this.initializeMapSecond()
       }
@@ -89,7 +87,9 @@ export class MainMapComponent implements OnInit {
     })
     this.mapGeoService.currentDeselectAll.subscribe(messageDeletedGeo => {
       this.deselectAllValue = messageDeletedGeo
-      this.deselectAll()
+      if (messageDeletedGeo != '') {
+        this.deselectAll()
+      }
     })
   }
 
@@ -179,9 +179,6 @@ export class MainMapComponent implements OnInit {
   });
 
   initializeMap() {
-
-    // this.regionBoarder = new TileLayer({})
-    console.log('new country is : ', this.selectedCountryName)
     this.grp = new LayerGroup({
       layers: [this.baseMap],
     });
@@ -222,14 +219,12 @@ export class MainMapComponent implements OnInit {
   }
 
   newMessage(name2: string) {
-    console.log('cam here anme: ', name2)
     if (name2 in this.selection) { // remove double click
       console.log('delete message', name2);
       delete this.selection[name2];
       this.selectionLayer.changed();
       this.geoSelected.delete(name2);
       this.newGeo(this.geoSelected)
-      // this.deletedGeo
       return;
     } else {
       console.log('was not in selectyuiolkjhg')
@@ -238,15 +233,12 @@ export class MainMapComponent implements OnInit {
 
   private getGeoName(geoStringCode: any): string {
     const geoCode: number = geoStringCode.split('.').pop() as number;
-    console.log('geoCode', geoCode)
     var geoName: string = ''
     this.regions.filter((region: RegionTo) => {
       if (Number(geoCode) === region.codeGeo) {
         geoName = region.regionName
       }
     })
-    console.log('dddd', geoName)
-
     return geoName;
 
   }
