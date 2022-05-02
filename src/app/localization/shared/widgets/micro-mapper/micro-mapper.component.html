@@ -2,33 +2,55 @@
 
   <mat-toolbar-row>
     <span>Geo localization</span>
+    <span class="fill-remaining-space">
+    <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Country" style='font-size:100%;'
+            class="example-icon">
+    <mat-icon>location_searching</mat-icon>
+    </button>
+      <mat-menu #menu="matMenu" [overlapTrigger]="false">
+      <button (click)="changeSelectedCountry('Netherlands')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+        <span>Netherlands</span>
+      </button>
+      <button (click)="changeSelectedCountry('Belgium')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+        <span>Belgium</span>
+      </button>
+         <button (click)="changeSelectedCountry('Italy')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+        <span>Italy</span>
+      </button>
+         <button mat-menu-item>
+        <span>Germany</span>
+      </button>
+      </mat-menu>
+    </span>
     <span class="example-spacer"></span>
     <button mat-icon-button class="example-icon"
-            matTooltip="Region layer"  style='font-size:100%;'
+            matTooltip="Region layer" style='font-size:100%;'
             aria-label="Example icon-button with menu icon"
             aria-hidden="false">
       <mat-icon>layers</mat-icon>
     </button>
 
     <button mat-icon-button class="example-icon"
-            matTooltip="Province layer"  style='font-size:100%;'
+            matTooltip="Province layer" style='font-size:100%;'
             aria-label="Example icon-button with menu icon"
             aria-hidden="false">
       <mat-icon>location_on</mat-icon>
     </button>
 
     <button mat-icon-button class="example-icon"
-            matTooltip="city layer"  style='font-size:100%;'
+            matTooltip="city layer" style='font-size:100%;'
             aria-label="Example icon-button with menu icon"
             aria-hidden="false">
       <mat-icon>pin_drop</mat-icon>
     </button>
-    <button mat-icon-button class="example-icon"
-            matTooltip="de select all"  style='font-size:100%;'
-            aria-label="Example icon-button with menu icon"
-            aria-hidden="false">
-      <mat-icon>highlight_off</mat-icon>
-    </button>
+    <a (click)="deselectAll('1')">
+      <button mat-icon-button class="example-icon"
+              matTooltip="de select all" style='font-size:100%;'
+              aria-label="Example icon-button with menu icon"
+              aria-hidden="false">
+        <mat-icon>highlight_off</mat-icon>
+      </button>
+    </a>
   </mat-toolbar-row>
 </mat-toolbar>
 

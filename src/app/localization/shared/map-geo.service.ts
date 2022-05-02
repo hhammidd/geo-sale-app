@@ -29,6 +29,12 @@ export class MapGeoService {
   private deletedGeoSource = new BehaviorSubject<string>('');
   currentDeletedGeo = this.deletedGeoSource.asObservable();
 
+  private deselectAllSource = new BehaviorSubject<string>('');
+  currentDeselectAll = this.deselectAllSource.asObservable();
+
+  private selectedCountrySource = new BehaviorSubject<string>(''); // Later should accept countries
+  currentSelectedCountry = this.selectedCountrySource.asObservable();
+
   changeMessage(geo: GeosName[]){
     this.geoSource.next(geo)
   }
@@ -39,6 +45,14 @@ export class MapGeoService {
 
   changeDeletedGeoMessage(deletedGeo: string){
     this.deletedGeoSource.next(deletedGeo)
+  }
+
+  changeDeselectAllSource(deselectAll: string) {
+    this.deselectAllSource.next(deselectAll)
+  }
+
+  changeSelectedCountrySource(selectedCountry: string) {
+    this.selectedCountrySource.next(selectedCountry)
   }
 
   getRegions() {

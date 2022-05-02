@@ -11,7 +11,6 @@ import OSM from "ol/source/OSM";
 import LayerGroup from "ol/layer/Group";
 import MAP from "ol/Map";
 import View from "ol/View";
-import Overlay from "ol/Overlay";
 import {GeosName} from "../../model/GeosName";
 import {MapGeoService} from "../../map-geo.service";
 import {RegionTo} from "../../model/RegionTo";
@@ -25,6 +24,8 @@ export class MainMapComponent implements OnInit {
 
   dataSourcebb: GeosName[] = []
   deletedGeo: string = ''
+  deselectAllValue: string = ''
+  selectedCountryName: string = ''
 
   geoList = new Set<string>(); // to prevent duplication
 
@@ -39,6 +40,27 @@ export class MainMapComponent implements OnInit {
 
   regions: RegionTo[] = []
 
+  selectedCountry = new Style({
+    stroke: new Stroke({
+      color: 'rgb(46,139,87,0.9)',
+      width: 2,
+    }),
+    fill: new Fill({
+      color: 'rgb(46,139,87,0.5)',
+    }),
+  });
+
+  country = new Style({
+    stroke: new Stroke({
+      color: 'gray',
+      width: 1,
+    }),
+    fill: new Fill({
+      color: 'rgb ( 185, 125, 75, 0.1 )',
+    }),
+  });
+  map = new MAP({})
+  baseMap = new Tile({source: new OSM()});
 
   ngOnInit(): void {
     this.mapGeoService.getRegions().subscribe(res => this.regions = res);
@@ -49,58 +71,54 @@ export class MainMapComponent implements OnInit {
       this.deletedGeo = messageDeletedGeo
       this.newMessage(messageDeletedGeo)
     })
-    this.initializeMap();
+
+    this.mapGeoService.currentSelectedCountry.subscribe(messageSelectedCountrySource => {
+      this.selectedCountryName = messageSelectedCountrySource;
+      console.log('map is changed')
+      if (this.selectedCountryName === 'Italy') {
+        console.log('create second')
+        this.map.setTarget('')
+        this.initializeMapSecond()
+      }
+      if (this.selectedCountryName === '') {
+        this.map.setTarget('')
+        this.initializeMap();
+      } else {
+        console.log('there is no map layer yet for chosen country')
+      }
+    })
+    this.mapGeoService.currentDeselectAll.subscribe(messageDeletedGeo => {
+      this.deselectAllValue = messageDeletedGeo
+      this.deselectAll()
+    })
   }
 
-  initializeMap() {
-
-    const regionBoarder = new TileLayer({
+  initializeMapSecond() {
+    this.regionBoarder = new TileLayer({
       source: new TileWMS({
         url: 'http://94.130.228.242:8082/geoserver/geosale/wms',
         params: {'LAYERS': 'geosale:ITA_adm1', 'TILED': true},
         serverType: 'geoserver',
       }),
-      opacity: 0.5
+      opacity: 1.0
     });
 
-    const country = new Style({
-      stroke: new Stroke({
-        color: 'gray',
-        width: 1,
-      }),
-      fill: new Fill({
-        color: 'rgb ( 185, 125, 75, 0.1 )',
-      }),
-    });
-
-    const selectedCountry = new Style({
-      stroke: new Stroke({
-        color: 'rgb(46,139,87,0.9)',
-        width: 2,
-      }),
-      fill: new Fill({
-        color: 'rgb(46,139,87,0.5)',
-      }),
-    });
-
-
-    const vectorLayer = new VectorLayer({
+    this.vectorLayer = new VectorLayer({
       source: new VectorSource({
         url: 'http://94.130.228.242:8082/geoserver/geosale/ows?service=WFS&version=1.0.0&request=GetFeature&typeName=geosale%3AITA_adm1&maxFeatures=50&outputFormat=application%2Fjson',
         format: new GeoJSON(),
       }),
-      style: country,
+      style: this.country,
       opacity: 0.1 // Already in country
     });
 
-    const baseMap = new Tile({source: new OSM()});
-    const grp = new LayerGroup({
-      layers: [baseMap, vectorLayer, regionBoarder],
+    this.grp = new LayerGroup({
+      layers: [this.baseMap, this.vectorLayer, this.regionBoarder],
     });
 
-    const map = new MAP({
+    this.map = new MAP({
       target: 'map',
-      layers: [grp],
+      layers: [this.grp],
       view: new View({
         center: [-78906677.036667, 5444438.895],
         zoom: 5
@@ -108,22 +126,14 @@ export class MainMapComponent implements OnInit {
     });
     // Selection
     this.selectionLayer = new VectorLayer({
-      map: map,
-      source: vectorLayer.getSource(),
+      map: this.map,
+      source: this.vectorLayer.getSource(),
       style: (feature) => {
         if (feature.getId()! in this.selection) {
-          return selectedCountry;
+          return this.selectedCountry;
         }
       },
     });
-
-    const overlayContainerElement: HTMLElement = document.querySelector('.overlay-container')!;
-    const overlayLayer = new Overlay({
-      element: overlayContainerElement
-    });
-    map.addOverlay(overlayLayer);
-
-    // let geoSelected  = new Set<any>();
 
     const selectMap = () => {
       return (features) => {
@@ -145,29 +155,50 @@ export class MainMapComponent implements OnInit {
           this.geoSelected.delete(fid);
           this.newGeo(this.geoSelected)
           delete this.selection[fid];
-          // this.selectionLayer.changed();
-          // this.selectionLayer.removeFeature(this.selectionLayer.getFeatureById('ITA_adm1.13', fid))
           this.selectionLayer.changed();
           return;
         }
         this.geoSelected.add(fid);
         this.newGeo(this.geoSelected)
-        // TODO add to other as well
         this.selection[fid] = feature;
         this.selectionLayer.changed();
       }
     }
-    map.on('click', function (e) {
-      vectorLayer.getFeatures(e.pixel).then(selectMap())
+    this.map.on('click', (e) => {
+      this.vectorLayer.getFeatures(e.pixel).then(selectMap())
     });
 
     this.geoList = this.geoSelected;
   }
 
+  // baseMap = new Tile({source: new OSM()});
+  regionBoarder = new TileLayer({})
+  vectorLayer = new VectorLayer({})
+  grp = new LayerGroup({
+    layers: [this.baseMap],
+  });
+
+  initializeMap() {
+
+    // this.regionBoarder = new TileLayer({})
+    console.log('new country is : ', this.selectedCountryName)
+    this.grp = new LayerGroup({
+      layers: [this.baseMap],
+    });
+
+    this.map = new MAP({
+      target: 'map',
+      layers: [this.grp],
+      view: new View({
+        center: [-78906677.036667, 5444438.895],
+        zoom: 5
+      }),
+    });
+    this.geoList = this.geoSelected;
+  }
+
   private newGeo(geoSelected: Set<any>) {
     let ww: GeosName[] = [];
-
-
     geoSelected.forEach(geoName =>
       ww.push({no: geoName, name: this.getGeoName(geoName), other: 'bla'}))
 
@@ -180,6 +211,15 @@ export class MainMapComponent implements OnInit {
   }
 
   message: string;
+
+  deselectAll() {
+    console.log('deselect: ')
+    this.selection = [];
+    this.geoSelected.clear();
+    this.newGeo(this.geoSelected)
+    this.selectionLayer.changed();
+    return;
+  }
 
   newMessage(name2: string) {
     console.log('cam here anme: ', name2)
