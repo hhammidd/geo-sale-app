@@ -75,6 +75,7 @@ export class MainMapComponent implements OnInit {
     this.mapGeoService.currentSelectedCountry.subscribe(messageSelectedCountrySource => {
       this.selectedCountryName = messageSelectedCountrySource;
       if (this.selectedCountryName === 'Italy') {
+        console.log('came to Italy')
         this.map.setTarget('')
         this.initializeMapSecond()
       }
@@ -83,6 +84,8 @@ export class MainMapComponent implements OnInit {
         this.initializeMap();
       } else {
         console.log('there is no map layer yet for chosen country')
+        // this.map.setTarget('')
+        //  this.initializeMap();
       }
     })
     this.mapGeoService.currentDeselectAll.subscribe(messageDeletedGeo => {

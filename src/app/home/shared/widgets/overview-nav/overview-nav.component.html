@@ -1,23 +1,23 @@
 <mat-toolbar color="primary">
 
   <mat-toolbar-row>
-    <span>Geo localization</span>
+    <span>Overview dashboard</span>
     <span class="fill-remaining-space">
     <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Country" style='font-size:100%;'
             class="example-icon">
     <mat-icon>location_searching</mat-icon>
     </button>
       <mat-menu #menu="matMenu" [overlapTrigger]="false">
-      <button (click)="changeSelectedCountry('Netherlands')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+      <button  class="button" mat-menu-item>
         <span>Netherlands</span>
       </button>
-      <button (click)="changeSelectedCountry('Belgium')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+      <button class="button" mat-menu-item>
         <span>Belgium</span>
       </button>
-         <button (click)="changeSelectedCountry('Italy')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+         <button class="button" mat-menu-item>
         <span>Italy</span>
       </button>
-         <button (click)="changeSelectedCountry('Germany')" class="button" mat-menu-item> <!-- MAke it dropdown -->
+         <button mat-menu-item>
         <span>Germany</span>
       </button>
       </mat-menu>
@@ -43,7 +43,7 @@
             aria-hidden="false">
       <mat-icon>pin_drop</mat-icon>
     </button>
-    <a (click)="deselectAll('1')">
+    <a >
       <button mat-icon-button class="example-icon"
               matTooltip="de select all" style='font-size:100%;'
               aria-label="Example icon-button with menu icon"

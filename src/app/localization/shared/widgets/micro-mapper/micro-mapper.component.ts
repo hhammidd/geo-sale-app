@@ -24,6 +24,7 @@ export class MicroMapperComponent implements OnInit {
   }
 
   changeSelectedCountry(selectedCountry: string) {
+    console.log('selected', selectedCountry)
     this.selectedCountry = selectedCountry;
     this.mapGeoService.changeSelectedCountrySource(selectedCountry)
 

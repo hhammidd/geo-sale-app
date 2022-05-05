@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'houseinfo', component: HouseinfoComponent},
   {path: 'localization', component: LocalizationComponent},
   {path: 'form', component: FormmeComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'}
+  {path: '', redirectTo: '/form', pathMatch: 'full'}
   // {path: 'salepointdashboardmap', component: SalepointdashboardmapComponent},
   // {path: '404', component: NotFoundComponent},
   // {path: '**', redirectTo: '/404'}

@@ -1,1 +1,62 @@
-<p>formme works!</p>
+<div fxLayout="row wrap" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="25px">
+  <mat-card *ngFor="let member of members" fxFlex="calc(33%-25px)" fxFlex.sm="calc(50%-25px)" >
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{member.title}}</mat-card-title>
+      <mat-card-subtitle>{{member.subtitle}}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image [src]="member.url" alt="Photo of {{member.title}}">
+    <mat-card-content>
+      <p>
+      <a routerLink="/home" routerLinkActive="active">{{member.content}}</a>
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+
+<!--<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">-->
+
+<!--  <mat-card fxFlex="100">-->
+<!--    <h2>Choose the field</h2>-->
+<!--  </mat-card>-->
+<!--</div>-->
+<!--<br>-->
+
+<!--<mat-divider></mat-divider>-->
+
+<!--<br>-->
+<!--<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">-->
+
+<!--  <mat-card fxFlex="50">-->
+<!--    <h2>Electric vehicle</h2>-->
+<!--      <ul>-->
+<!--        <li><a routerLink="/home" routerLinkActive="active">Explore more</a></li>-->
+<!--      </ul>-->
+<!--  </mat-card>-->
+
+<!--  <mat-card fxFlex="50">-->
+<!--    <h2>House info</h2>-->
+<!--    <ul>-->
+<!--      <li><a routerLink="/home" routerLinkActive="active">Explore more</a></li>-->
+<!--    </ul>-->
+<!--  </mat-card>-->
+<!--</div>-->
+
+<!--<br>-->
+
+<!--<mat-divider></mat-divider>-->
+
+<!--<br>-->
+
+<!--<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">-->
+
+<!--  <mat-card fxFlex="50">-->
+<!--    <h2>Food</h2>-->
+<!--  </mat-card>-->
+
+<!--  <mat-card fxFlex="50">-->
+<!--    <h2>Light</h2>-->
+<!--  </mat-card>-->
+<!--</div>-->
+

@@ -19,4 +19,9 @@ export class FormmeComponent implements OnInit {
     })
   }
 
+  members: {title: string, subtitle: string, content: string, url: string}[] = [
+    {title: 'Electric field', subtitle: 'Subtitle', content: 'Explore Electric vehicle', url: 'assets/images/electric-vehicle.png'},
+    {title: 'House info', subtitle: 'Subtitle', content: 'Explore house app', url: 'assets/images/electric-vehicle.png'},
+    {title: 'Game', subtitle: 'Subtitle', content: 'Game app', url: 'assets/images/electric-vehicle.png'},
+  ];
 }

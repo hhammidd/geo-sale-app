@@ -1,0 +1,32 @@
+.example-icon {
+  /*padding: 0 14px;*/
+  margin: 20px;
+
+}
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.example-container {
+  display: flex;
+}
+
+.matselect{
+  width: 115px !important;
+  border: 1px solid;
+  border-radius: 6px;
+  position: absolute;
+  right: 400px;
+  top: 10px;
+}
+
+::ng-deep .matselect .mat-form-field-underline {
+  display: none !important;
+}
+
+.fill-remaining-space {
+  /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+  flex: 10 10 auto;
+
+}

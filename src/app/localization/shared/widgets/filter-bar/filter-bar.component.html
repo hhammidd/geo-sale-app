@@ -2,11 +2,19 @@
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon style='font-size:100%;'>filter_list</mat-icon>
   </button>
-  <span style='font-size:80%;'>Geo chosen</span>
+  <span style='font-size:80%;'>Chosen geo</span>
   <span class="example-spacer"></span>
 </mat-toolbar>
 <div class="example-container mat-elevation-z8">
-  <table mat-table [dataSource]="dataSourcebb" class="mat-elevation-z8">
+  <!-- Search -->
+  <div class="search-div">
+    <mat-form-field class="search-form-field">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()" style="width: 100%">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear"*ngIf="searchKey" (click)="onSearchClear()" )>
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+  <table mat-table [dataSource]="listData" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="no">
@@ -18,13 +26,11 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Geo Name</th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-      <!--      <td mat-cell *matCellDef="let element"> {{message}} </td>-->
-
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="other">
-      <th mat-header-cell *matHeaderCellDef> Other</th>
+      <th mat-header-cell *matHeaderCellDef>Remove</th>
       <td mat-cell *matCellDef="let element">
         <a (click)="openDialog('Delete',element.no)">
           <button mat-icon-button class="example-icon"
@@ -43,4 +49,5 @@
   </table>
   <router-outlet></router-outlet>
 
+</div>
 </div>

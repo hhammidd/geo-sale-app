@@ -3,6 +3,7 @@ import {GeosName} from '../../model/GeosName';
 import {MapGeoService} from "../../map-geo.service";
 import {MainMapComponent} from "../main-map/main-map.component";
 import {SalepointOlService} from "../../../../salepoint-ol/shared/salepoint-ol.service";
+import {MatTableDataSource} from "@angular/material/table";
 
 @Component({
   selector: 'filter-bar',
@@ -13,6 +14,7 @@ export class FilterBarComponent implements OnInit {
 
   title = 'angular-material-tab-router';
   dataSourcebb: GeosName[];
+  listData: MatTableDataSource<any>;
 
   constructor(public service: SalepointOlService,
               public mapGeoService: MapGeoService) {
@@ -24,10 +26,12 @@ export class FilterBarComponent implements OnInit {
   selectionLayer: any;
   selection: any = {}
   deletedGeo: string = ''
+  searchKey: string;
 
   ngOnInit() {
     this.mapGeoService.currentMessage.subscribe(message => {
       this.dataSourcebb = message
+      this.listData = new MatTableDataSource(message)
     })
     this.mapGeoService.currentSelection.subscribe(messageSelection => this.selection = messageSelection)
     this.mapGeoService.currentSelectionLayer.subscribe(messageSelectionLayerSource => this.selectionLayer = messageSelectionLayerSource)
@@ -43,5 +47,14 @@ export class FilterBarComponent implements OnInit {
   openDialog(delete1: string, element: string) {
     this.deletedGeo = element
     this.mapGeoService.changeDeletedGeoMessage(element)
+  }
+
+  onSearchClear() {
+    this.searchKey = '';
+    this.applyFilter()
+  }
+
+  applyFilter() {
+    this.listData.filter = this.searchKey.trim().toLowerCase()
   }
 }
