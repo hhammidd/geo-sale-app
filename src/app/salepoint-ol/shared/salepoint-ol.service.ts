@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {GeosTo} from "../model/GeosTo";
 import {SalePointsInfoTo} from "../../sale-points/model/SalePointsInfoTo";
 import {SalePointTo} from "../../sale-points/model/SalePointTo";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,13 @@ export class SalepointOlService {
     this.geoUrl = 'http://94.130.228.242:32737/';
   }
 
+  private salePointTosSource = new BehaviorSubject<SalePointTo[]>([]); // Later should accept countries
+  currentSalePointTos = this.salePointTosSource.asObservable();
+
+  changeSalePointTosSource(salePOints: SalePointTo[]) {
+    this.salePointTosSource.next(salePOints)
+  }
+
   geosTo: GeosTo;
   salePointTos: SalePointTo[] = [];
 
@@ -26,8 +34,9 @@ export class SalepointOlService {
     this.geosTo = new GeosTo(Array.from(geoList));
     return this.http.post<SalePointsInfoTo>(this.usersUrl + 'sale-point-geo/filter-with-map', this.geosTo)
       .subscribe( data => {
-        console.log('data from backend: ' , data);
+        console.log('data from backend cc: ' , data);
         this.salePointTos = data.salePointTos as SalePointTo[];
+        this.changeSalePointTosSource(data.salePointTos)
       });
     console.log('final object in service: ', this.geosTo);
   }

@@ -51,6 +51,7 @@ import { FilterBarComponent } from './localization/shared/widgets/filter-bar/fil
 import { MicroMapperComponent } from './localization/shared/widgets/micro-mapper/micro-mapper.component';
 import { FormmeComponent } from './formme/formme.component';
 import { OverviewNavComponent } from './home/shared/widgets/overview-nav/overview-nav.component';
+import { SalepointOverviewComponent } from './localization/shared/widgets/salepoint-overview/salepoint-overview.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +82,7 @@ import { OverviewNavComponent } from './home/shared/widgets/overview-nav/overvie
     MicroMapperComponent,
     FormmeComponent,
     OverviewNavComponent,
+    SalepointOverviewComponent,
   ],
   imports: [
     BrowserModule,

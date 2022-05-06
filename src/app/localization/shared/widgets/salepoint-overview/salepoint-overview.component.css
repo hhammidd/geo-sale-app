@@ -5,28 +5,21 @@ table {
 
 th, td {
   overflow: hidden;
-  /* distance btw columns */
-  width: 130px;
+  width: 200px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
-.search-div-1{
-  margin: 10px;
-  overflow: hidden;
-  width: 300px;
-}
+/*.example-container {*/
+/*  overflow-x: scroll;*/
+/*  overflow-y: scroll;*/
+/*}*/
 
 table {
   width: 100%;
 }
 .example-container {
-  /*should be correlated to map */
-  height: 535px;
+  height: 400px;
   max-width: 100%;
   overflow: auto;
-}
-
-.example-spacer {
-  flex: 0 0 auto;
 }
